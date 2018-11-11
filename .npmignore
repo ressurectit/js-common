@@ -1,0 +1,8 @@
+/.vscode
+/src
+/tests
+.jsbeautifyrc
+tsconfig.json
+ngv.config.json
+
+*.log
