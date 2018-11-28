@@ -1,6 +1,7 @@
 import * as extendLib from 'extend';
 
 import {isPresent} from './lang';
+import {ValueNamePair} from '../types';
 
 /**
  * Reverse current string and returns new reverse string
@@ -135,4 +136,74 @@ export function htmlToElement(html: string, doc?: HTMLDocument): HTMLElement
     template.innerHTML = html;
 
     return template.content.firstChild as HTMLElement;
+}
+
+/**
+ * Extract values from enum type
+ * @param enumType Enum type that will have extracted values
+ */
+export function getEnumValues(enumType: any): ValueNamePair[]
+{
+    let result: ValueNamePair[] = [];
+
+    Object.keys(enumType).forEach(key =>
+    {
+        if(isNaN(+key))
+        {
+            return;
+        }
+
+        result.push(
+        {
+            value: key,
+            name: enumType[key]
+        });
+    })
+
+    return result;
+}
+
+/**
+ * Safely returns value from object property using string expression
+ * @param object Object which property value will be obtained
+ * @param expression Expression for obtaining value
+ */
+export function getValue(object: any, expression: string): any
+{
+    return expression.split('.').reduce((o,i) =>
+    {
+        if(o)
+        {
+            return o[i];
+        }
+
+        return null;
+    }, object);
+}
+
+/**
+ * Sets value to objects property using string expression
+ * @param object Object which property value will be set
+ * @param value Value that will be set
+ * @param expression Expression for setting value
+ */
+export function setValue(object: any, value: any, expression: string): void
+{
+    let parts = expression.split('.');
+
+    parts.forEach((part, index) =>
+    {
+        //last item value is assigned
+        if(index == parts.length - 1)
+        {
+            if(isPresent(value))
+            {
+                object[part] = value;
+            }
+
+            return;
+        }
+
+        object = object[part] = object[part] || {};
+    });
 }
