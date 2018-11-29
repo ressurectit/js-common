@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 1.0.1
+
+- added method `getEnumValues` for extraction of `ValueNamePair[]` from any `enum` type
+- added method `getValue` which allows extract value of object using `string` expression
+- added method `setValue` which allows to set value to object using `string` expression
+
 ## Version 1.0.0
  
 - Initial version of library
