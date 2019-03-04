@@ -3,13 +3,12 @@
     "version": "0.0.0-placeholder",
     "description": "Common javascript tools, utilities and other usefull stuff",
     "main": "dist/es5/index.js",
-    "main-es2015": "dist/es2015/index.js",
+    "esm2015": "dist/es2015/index.js",
     "typings": "dist/es5/index.d.ts",
     "sideEffects": false,
     "scripts": {
         "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015",
-        "postbuild": "copyfiles -u 2 dist/src/**/*.* dist && copyfiles -u 2 dist/testing/**/*.* testing && rimraf dist/src dist/dist dist/node_modules dist/testing",
-        "clean": "rimraf dist testing tests docs",
+        "clean": "rimraf dist docs",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
         "tsc": "tsc",
@@ -33,12 +32,12 @@
         "extend": "^3.0.2"
     },
     "devDependencies": {
-        "@types/extend": "^3.0.0",
+        "@types/extend": "^3.0.1",
         "@compodoc/compodoc": "1.1.11",
-        "rimraf": "2.6.2",
-        "copyfiles": "2.0.0",
-        "replace-in-file": "3.4.0",
-        "typescript": "3.1.6",
+        "rimraf": "2.6.3",
+        "copyfiles": "2.1.0",
+        "replace-in-file": "4.1.0",
+        "typescript": "3.5.1",
         "npm-git-version": "1.1.0"
     }
 }

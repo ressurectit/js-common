@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.0.2
+
+- added support for `jsDevMode` debug variable
+- added function for defining global variables `globalDefine`
+
 ## Version 1.0.1
 
 - added method `getEnumValues` for extraction of `ValueNamePair[]` from any `enum` type
