@@ -207,3 +207,15 @@ export function setValue(object: any, value: any, expression: string): void
         object = object[part] = object[part] || {};
     });
 }
+
+/**
+ * Formats string using '%s', to print '%s' you have to use '%%s'
+ * @param str String containing substitution constants
+ * @param args Arguments that are used for replacement
+ */
+export function format(str: string, ...args: any[])
+{
+    let i = 0;
+
+    return str.replace(/((?!%).)%s/g, (_sub, substArgs) => `${substArgs[0]}${args[i++]}`).replace(/%%s/g, "%s");
+}
