@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.0.3
+
+- added function `format` for formatting string using substitution *%s*
+
 ## Version 1.0.2
 
 - added support for `jsDevMode` debug variable
