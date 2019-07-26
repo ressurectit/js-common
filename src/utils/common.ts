@@ -12,7 +12,7 @@ export function reverseString(str: string): string
 {
     return str.split("").reverse().join("");
 }
-    
+
 /**
  * Extends one object with additional properties from other objects, supports deep extend
  * @param  {boolean|Object} deepOrObject Object to be extended or indication that deep copy should be performed
@@ -24,30 +24,30 @@ export function extend(deepOrObject: boolean | Object, ...objectN: Object[]): Ob
 {
     return extendLib.apply(null, [deepOrObject, ...objectN]);
 }
-    
+
 /**
  * Merges properties of two separate object into new third one
- * @param  {{[key: string]: any}} source1 First source object 
+ * @param  {{[key: string]: any}} source1 First source object
  * @param  {{[key: string]: any}} source2 Second source object
  * @returns Object Object containing properties from source1 and source2 objects
  */
 export function merge(source1: {[key: string]: any}, source2: {[key: string]: any}): Object
 {
     var resultObj: {[key: string]: any} = {};
-    
-    for (var attrname in source1) 
-    { 
-        resultObj[attrname] = source1[attrname]; 
+
+    for (var attrname in source1)
+    {
+        resultObj[attrname] = source1[attrname];
     }
-    
-    for (var attrname in source2) 
-    { 
-        resultObj[attrname] = source2[attrname]; 
+
+    for (var attrname in source2)
+    {
+        resultObj[attrname] = source2[attrname];
     }
-    
+
     return resultObj;
 }
-    
+
 /**
  * Generates random string consisting from lowercase letters
  * @param  {number} length Length of generated string
@@ -56,12 +56,12 @@ export function merge(source1: {[key: string]: any}, source2: {[key: string]: an
 export function generateId(length: number)
 {
     var result = "";
-    
+
     for(var x = 0; x < length; x++)
     {
         result += String.fromCharCode(Math.round(Math.random() * 25 + 97));
     }
-    
+
     return result;
 }
 
@@ -218,4 +218,33 @@ export function format(str: string, ...args: any[])
     let i = 0;
 
     return str.replace(/((?!%).)%s/g, (_sub, substArgs) => `${substArgs[0]}${args[i++]}`).replace(/%%s/g, "%s");
+}
+
+/**
+ * Performs flatMap over provided array
+ * @param array Array to be reduced using flatMap
+ */
+export function flatMapArray<TItem>(array: TItem[][]): TItem[]
+{
+    return array.reduce((acc, x) => acc.concat(x), []);
+}
+
+/**
+ * Serialize object to string that is usable as url query parameter
+ * @param obj Object to be serialized
+ * @param replacer Function that can be used for replacing provided values
+ */
+export function serializeToUrlQuery<TObj>(obj: TObj, replacer?: (this: any, key: string, value: any) => any): string
+{
+    return btoa(encodeURIComponent(JSON.stringify(obj, replacer)));
+}
+
+/**
+ * Deserialize value from url query string into object
+ * @param queryParamValue Query param string value
+ * @param reviver Function that can be used for correctly deserializing value
+ */
+export function deserializeFromUrlQuery<TObj>(queryParamValue: string, reviver?: (this: any, key: string, value: any) => any): TObj
+{
+    return JSON.parse(decodeURIComponent(atob(queryParamValue)), reviver);
 }

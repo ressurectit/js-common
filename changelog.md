@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.0.4
+
+- added function `flatMapArray` that performs flatMap over array
+- added functions `serializeToUrlQuery`, `deserializeFromUrlQuery` that handle object serialization and deserialization into query string
+
 ## Version 1.0.3
 
 - added function `format` for formatting string using substitution *%s*
