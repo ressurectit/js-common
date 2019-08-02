@@ -1,9 +1,10 @@
 # Changelog
 
-## Version 1.0.4
+## Version 1.1.0
 
 - added function `flatMapArray` that performs flatMap over array
 - added functions `serializeToUrlQuery`, `deserializeFromUrlQuery` that handle object serialization and deserialization into query string
+- added support for `CommonJs` output
 
 ## Version 1.0.3
 
