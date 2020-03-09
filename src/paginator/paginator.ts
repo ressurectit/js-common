@@ -29,7 +29,7 @@ export class Paginator
 
     /**
      * Sets current page number.
-     * @param  {number} page Page number
+     * @param page - Page number
      * @returns Paginator Provides a fluent interface
      */
     public setPage(page: number): Paginator
@@ -68,7 +68,7 @@ export class Paginator
 
     /**
      * Sets first page (base) number.
-     * @param  {number} baseVal Index of base page
+     * @param baseVal - Index of base page
      * @returns Paginator Provides a fluent interface
      */
     public setBase(baseVal: number): Paginator
@@ -116,7 +116,7 @@ export class Paginator
 
     /**
      * Sets the number of items to display on a single page.
-     * @param  {number} itemsPerPage Number of items per page
+     * @param itemsPerPage - Number of items per page
      * @returns Paginator Provides a fluent interface
      */
     public setItemsPerPage(itemsPerPage: number): Paginator
@@ -137,7 +137,7 @@ export class Paginator
 
     /**
      * Sets the total number of items.
-     * @param  {number} itemCount Count of items or -1 for infinity
+     * @param itemCount - Count of items or -1 for infinity
      * @returns Paginator Provides a fluent interface
      */
     public setItemCount(itemCount: number): Paginator
@@ -211,7 +211,7 @@ export class Paginator
 
     /**
      * Gets list of page numbers with specified dispersion
-     * @param  {number} dispersion Number identifying dispersion
+     * @param dispersion - Number identifying dispersion
      * @returns number Page numbers according specified dispersion
      */
     public getPagesWithDispersion(dispersion: number): number[]
@@ -239,7 +239,7 @@ export class Paginator
 
     /**
      * Gets list of page numbers with specified dispersion, pages are trimmed if current page is near beginning or end
-     * @param  {number} dispersion Number identifying dispersion
+     * @param dispersion - Number identifying dispersion
      * @returns number Page numbers according specified dispersion
      */
     public getPagesWithTrimDispersion(dispersion: number): number[]
@@ -261,7 +261,7 @@ export class Paginator
 
     /**
      * Gets list of page numbers generated with uniform distribution
-     * @param  {number} numberOfPages Number of pages that are going to be uniformly distributed between first and last page (including)
+     * @param numberOfPages - Number of pages that are going to be uniformly distributed between first and last page (including)
      * @returns number Uniformly distributed page numbers
      */
     public getPagesWithUniformDistribution(numberOfPages: number): number[]

@@ -2,25 +2,36 @@
     "name": "@jscrpt/common",
     "version": "0.0.0-placeholder",
     "description": "Common javascript tools, utilities and other usefull stuff",
-    "main": "dist/module/indexNode.js",
-    "module": "dist/module/indexNode.js",
-    "browser": "dist/es5/index.js",
-    "esm2015": "dist/es2015/index.js",
-    "typings": "dist/es5/index.d.ts",
+    "main": "./dist/module/indexNode.js",
+    "module": "./dist/module/indexNode.js",
+    "browser": "./dist/es5/index.js",
+    "esm2015": "./dist/es2015/index.js",
+    "typings": "./src/index.d.ts",
     "sideEffects": false,
     "scripts": {
         "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS",
-        "clean": "rimraf dist docs",
+        "clean": "rimraf dist src/**/*.d.ts src/**/*.d.ts.map",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
         "tsc": "tsc",
         "version:placeholder": "replace-in-file /\\\"version\\\":\\s\\\".*?\\\"/g \"\\\"version\\\": \\\"0.0.0-placeholder\\\"\" package.json --isRegex",
-        "version:git": "ngv -e \"replace-in-file 0.0.0-placeholder $GIT_VERSION package.json\"",
+        "version:git": "ngv -e \"replace-in-file 0.0.0-placeholder $GIT_VERSION package.json && echo $GIT_VERSION > version.bak\"",
+        "version:build": "ngv -e \"echo $GIT_VERSION > version.bak\"",
         "prepublishOnly": "npm run bundle && npm run version:placeholder && npm run version:git",
-        "postpublish": "npm run version:placeholder && npm run clean",
+        "postpublish": "npm run doc && npm run version:placeholder && npm run clean",
         "bundle": "npm run clean && npm run build",
-        "deploy": "npm publish",
-        "deploy:next": "npm publish --tag next"
+        "deploy": "npm publish --loglevel error",
+        "deploy:next": "npm publish --tag next --loglevel error",
+        "doc": "path-exists docs && npm run doc:generate || echo \"No docs generated!\"",
+        "doc:generate": "npm run doc:generate:common && npm run doc:save",
+        "doc:save": "cd docs && git add . && git commit -m \"INT: updated API docs js-common\" && git push && cd ..",
+        "doc:generate:common": "rimraf docs/content/api/js-common && npm run doc:json:common && npm run doc:md:common",
+        "doc:json:common": "api-extractor run --local --verbose -c api-extractor.json",
+        "doc:md:common": "api-documenter markdown -i temp -o docs/content/api/js-common && rimraf temp"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ressurectit/js-common.git"
     },
     "keywords": [
         "javascript",
@@ -28,18 +39,24 @@
         "tools",
         "utils"
     ],
-    "author": "kukjevov <kukjevov@zoznam.sk>",
-    "license": "ISC",
+    "author": "kukjevov",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ressurectit/js-common/issues"
+    },
+    "homepage": "https://github.com/ressurectit/js-common",
     "peerDependencies": {
         "extend": "^3.0.2"
     },
     "devDependencies": {
         "@types/extend": "^3.0.1",
-        "@compodoc/compodoc": "1.1.11",
-        "rimraf": "2.6.3",
-        "copyfiles": "2.1.0",
-        "replace-in-file": "4.1.0",
-        "typescript": "3.5.1",
-        "npm-git-version": "1.1.0"
+        "@microsoft/api-extractor": "7.7.8",
+        "@microsoft/api-documenter": "7.7.12",
+        "rimraf": "3.0.2",
+        "copyfiles": "2.2.0",
+        "replace-in-file": "5.0.2",
+        "path-exists-cli": "1.0.0",
+        "typescript": "3.8.3",
+        "npm-git-version": "1.1.1"
     }
 }

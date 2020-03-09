@@ -2,10 +2,11 @@ import * as extendLib from 'extend';
 
 import {isPresent} from './lang';
 import {ValueNamePair} from '../types';
+import {normalize} from '../normalizer';
 
 /**
  * Reverse current string and returns new reverse string
- * @param  {string} str String to be reversed
+ * @param str - String to be reversed
  * @returns string Reverse string
  */
 export function reverseString(str: string): string
@@ -15,8 +16,8 @@ export function reverseString(str: string): string
 
 /**
  * Extends one object with additional properties from other objects, supports deep extend
- * @param  {boolean|Object} deepOrObject Object to be extended or indication that deep copy should be performed
- * @param  {Object[]} objectN Objects that will be used for extending, if deep is used first here is target object
+ * @param deepOrObject - Object to be extended or indication that deep copy should be performed
+ * @param objectN - Objects that will be used for extending, if deep is used first here is target object
  * @returns Object Extended object with properties from other objects
  */
 export function extend<TResult>(deepOrObject: boolean | Object, ...objectN: Object[]): TResult;
@@ -27,8 +28,8 @@ export function extend(deepOrObject: boolean | Object, ...objectN: Object[]): Ob
 
 /**
  * Merges properties of two separate object into new third one
- * @param  {{[key: string]: any}} source1 First source object
- * @param  {{[key: string]: any}} source2 Second source object
+ * @param source1 - First source object
+ * @param source2 - Second source object
  * @returns Object Object containing properties from source1 and source2 objects
  */
 export function merge(source1: {[key: string]: any}, source2: {[key: string]: any}): Object
@@ -50,7 +51,7 @@ export function merge(source1: {[key: string]: any}, source2: {[key: string]: an
 
 /**
  * Generates random string consisting from lowercase letters
- * @param  {number} length Length of generated string
+ * @param length - Length of generated string
  * @returns number Generated string
  */
 export function generateId(length: number)
@@ -67,7 +68,7 @@ export function generateId(length: number)
 
 /**
  * Converts string in that way that first letter will be lowerCase
- * @param  {string} text Text to be converted
+ * @param text - Text to be converted
  */
 export function firstToLowerCase(text: string)
 {
@@ -76,8 +77,8 @@ export function firstToLowerCase(text: string)
 
 /**
  * Gets indication whether is child descendand of parent
- * @param parent Parent to be tested
- * @param child Child to be looked for
+ * @param parent - Parent to be tested
+ * @param child - Child to be looked for
  */
 export function isDescendant(parent: HTMLElement, child: HTMLElement): boolean
 {
@@ -98,8 +99,8 @@ export function isDescendant(parent: HTMLElement, child: HTMLElement): boolean
 
 /**
  * Computes offset of element against document
- * @param element Html element which offset is counted
- * @param doc Html document to be used for extracting scroll offset
+ * @param element - Html element which offset is counted
+ * @param doc - Html document to be used for extracting scroll offset
  */
 export function offset(element: HTMLElement, doc?: HTMLDocument)
 {
@@ -119,8 +120,8 @@ export function offset(element: HTMLElement, doc?: HTMLDocument)
 
 /**
  * Converts html string into html DOM
- * @param html Html string to be converted to DOM
- * @param doc Optional html document to be used
+ * @param html - Html string to be converted to DOM
+ * @param doc - Optional html document to be used
  */
 export function htmlToElement(html: string, doc?: HTMLDocument): HTMLElement
 {
@@ -140,7 +141,7 @@ export function htmlToElement(html: string, doc?: HTMLDocument): HTMLElement
 
 /**
  * Extract values from enum type
- * @param enumType Enum type that will have extracted values
+ * @param enumType - Enum type that will have extracted values
  */
 export function getEnumValues(enumType: any): ValueNamePair[]
 {
@@ -165,8 +166,8 @@ export function getEnumValues(enumType: any): ValueNamePair[]
 
 /**
  * Safely returns value from object property using string expression
- * @param object Object which property value will be obtained
- * @param expression Expression for obtaining value
+ * @param object - Object which property value will be obtained
+ * @param expression - Expression for obtaining value
  */
 export function getValue(object: any, expression: string): any
 {
@@ -183,9 +184,9 @@ export function getValue(object: any, expression: string): any
 
 /**
  * Sets value to objects property using string expression
- * @param object Object which property value will be set
- * @param value Value that will be set
- * @param expression Expression for setting value
+ * @param object - Object which property value will be set
+ * @param value - Value that will be set
+ * @param expression - Expression for setting value
  */
 export function setValue(object: any, value: any, expression: string): void
 {
@@ -210,8 +211,8 @@ export function setValue(object: any, value: any, expression: string): void
 
 /**
  * Formats string using '%s', to print '%s' you have to use '%%s'
- * @param str String containing substitution constants
- * @param args Arguments that are used for replacement
+ * @param str - String containing substitution constants
+ * @param args - Arguments that are used for replacement
  */
 export function format(str: string, ...args: any[])
 {
@@ -222,7 +223,7 @@ export function format(str: string, ...args: any[])
 
 /**
  * Performs flatMap over provided array
- * @param array Array to be reduced using flatMap
+ * @param array - Array to be reduced using flatMap
  */
 export function flatMapArray<TItem>(array: TItem[][]): TItem[]
 {
@@ -231,8 +232,8 @@ export function flatMapArray<TItem>(array: TItem[][]): TItem[]
 
 /**
  * Serialize object to string that is usable as url query parameter
- * @param obj Object to be serialized
- * @param replacer Function that can be used for replacing provided values
+ * @param obj - Object to be serialized
+ * @param replacer - Function that can be used for replacing provided values
  */
 export function serializeToUrlQuery<TObj>(obj: TObj, replacer?: (this: any, key: string, value: any) => any): string
 {
@@ -241,10 +242,26 @@ export function serializeToUrlQuery<TObj>(obj: TObj, replacer?: (this: any, key:
 
 /**
  * Deserialize value from url query string into object
- * @param queryParamValue Query param string value
- * @param reviver Function that can be used for correctly deserializing value
+ * @param queryParamValue - Query param string value
+ * @param reviver - Function that can be used for correctly deserializing value
  */
 export function deserializeFromUrlQuery<TObj>(queryParamValue: string, reviver?: (this: any, key: string, value: any) => any): TObj
 {
     return JSON.parse(decodeURIComponent(atob(queryParamValue)), reviver);
+}
+
+/**
+ * Converts id to valid html id
+ * @param id - Id that is going to be converted to valid html id
+ * @param charMap - Character map used during normalization
+ */
+export function validHtmlId(id: string, charMap: Object = {}): string
+{
+    id = id.toLowerCase()
+        .replace(/[\s]+/g, '-')
+        .replace(/^(\d)/g, 'x$1');
+
+    id = normalize(id, charMap);
+
+    return id;
 }

@@ -5,4 +5,8 @@
 tsconfig.json
 ngv.config.json
 
+*.ts
+!*.d.ts
+!/src/**/*.d.ts
+
 *.log

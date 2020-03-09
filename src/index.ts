@@ -14,6 +14,10 @@ globalDefineFunc(global =>
  */
 export const initializeJsDevMode = () => {};
 
+/**
+ * Defines global variable
+ * @param globalDefineFunc - Global variable definition callback
+ */
 export const globalDefine = globalDefineFunc;
 export * from './encoder/encoder';
 export * from './paginator/paginator';

@@ -5,7 +5,7 @@ declare global
 
 /**
  * Defines global variable
- * @param globalDefineFunc Global variable definition callback
+ * @param globalDefineFunc - Global variable definition callback
  */
 export function globalDefine(globalDefineFunc: (global: any) => void)
 {

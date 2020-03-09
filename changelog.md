@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 1.1.1
+
+- added `normalize` function used for removing accent from text
+- added `NormalizationCharMaps` with `slovak` characters normalization
+- added `validHtmlId` function used for transforming text to valid html id
+
 ## Version 1.1.0
 
 - added function `flatMapArray` that performs flatMap over array
