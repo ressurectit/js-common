@@ -21,6 +21,7 @@ export const initializeJsDevMode = () => {};
 export const globalDefine = globalDefineFunc;
 export * from './encoder/encoder';
 export * from './paginator/paginator';
+export * from './normalizer';
 export * from './enums';
 export * from './types';
 export * from './utils';
