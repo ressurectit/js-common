@@ -259,6 +259,7 @@ export function validHtmlId(id: string, charMap: Object = {}): string
 {
     id = id.toLowerCase()
         .replace(/[\s]+/g, '-')
+        .replace(/\./g, '')
         .replace(/^(\d)/g, 'x$1');
 
     id = normalize(id, charMap);
