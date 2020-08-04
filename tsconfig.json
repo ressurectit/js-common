@@ -4,7 +4,8 @@
         "target": "es5",
         "module": "esnext",
         "moduleResolution": "node",
-        "sourceMap": true,
+        "inlineSourceMap": true,
+        "inlineSources": true,
         "declaration": true,
         "declarationMap": true,
         "declarationDir": "src",
@@ -15,6 +16,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "strictNullChecks": false,
+        "esModuleInterop": true,
         "outDir": "dist/es5",
         "lib": 
         [
@@ -25,7 +27,6 @@
     "exclude":
     [
         "node_modules",
-        "dist",
-        "testing"
+        "dist"
     ]
 }

@@ -1,12 +1,14 @@
 /.vscode
-/src
 /tests
-.jsbeautifyrc
+api-extractor.json
 tsconfig.json
 ngv.config.json
 
 *.ts
 !*.d.ts
-!/src/**/*.d.ts
 
+*~
+*.orig
 *.log
+*.spec.js
+*.spec.d.ts

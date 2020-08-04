@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 1.2.0 (2020-08-04)
+
+### Features
+
+- added `isOverflown` function which checks whether has provided *element* overflow
+- added `BindThis` decorator, which binds method to its parent class instance
+- added `DebounceCall` decorator, which debounces call of method for specified time
+- added `CallOnce` decorator, which calls method only once per specified time
+- `Dictionary` extended with *generic type*, which defaults to `any`
+
 ## Version 1.1.1
 
 - added `normalize` function used for removing accent from text

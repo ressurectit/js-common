@@ -1,2 +1,2 @@
-export type Dictionary = {[index: string]: any};
+export type Dictionary<TData = any> = {[index: string]: TData};
 export type StringDictionary = {[index: string]: string};

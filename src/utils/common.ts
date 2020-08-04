@@ -1,4 +1,4 @@
-import * as extendLib from 'extend';
+import extendLib from 'extend';
 
 import {isPresent} from './lang';
 import {ValueNamePair} from '../types';
@@ -265,4 +265,13 @@ export function validHtmlId(id: string, charMap: Object = {}): string
     id = normalize(id, charMap);
 
     return id;
+}
+
+/**
+ * Checks whether is element overflown either horizontal, or vertical
+ * @param element - Element to be tested for overflow
+ */
+export function isOverflown(element: HTMLElement): boolean
+{
+    return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
