@@ -1,34 +1,58 @@
-export function isPresent(obj: any): boolean
+/**
+ * Tests whether is object not `null` and not `undefined` at the same time
+ * @param obj - Object to be tested
+ */
+export function isPresent<TObj>(obj: TObj): obj is NonNullable<TObj>
 {
     return obj !== undefined && obj !== null;
 }
 
-export function isBlank(obj: any): boolean
+/**
+ * Tests whether is object `null` or `undefined`
+ * @param obj - Object to be tested
+ */
+export function isBlank(obj: any): obj is null|undefined
 {
     return obj === undefined || obj === null;
 }
 
-export function isBoolean(obj: any): boolean
+/**
+ * Tests whether is object instance of `boolean`
+ * @param obj - Object to be tested
+ */
+export function isBoolean(obj: any): obj is boolean
 {
     return typeof obj === 'boolean';
 }
 
-export function isNumber(obj: any): boolean
+/**
+ * Tests whether is object instance of number
+ * @param obj - Object to be tested
+ */
+export function isNumber(obj: any): obj is number
 {
     return typeof obj === 'number';
 }
 
+/**
+ * Tests whether is object instance of string
+ * @param obj - Object to be tested
+ */
 export function isString(obj: any): obj is string
 {
     return typeof obj === 'string';
 }
 
-export function isFunction(obj: any): boolean
+/**
+ * Tests whether is object instance of function
+ * @param obj - Object to be tested
+ */
+export function isFunction(obj: any): obj is Function
 {
     return typeof obj === 'function';
 }
 
-export function isType(obj: any): boolean
+export function isType(obj: any): obj is Function
 {
     return isFunction(obj);
 }
@@ -45,7 +69,7 @@ export function isStrictStringMap(obj: any): boolean
     return isStringMap(obj) && Object.getPrototypeOf(obj) === STRING_MAP_PROTO;
 }
 
-export function isArray(obj: any): boolean
+export function isArray(obj: any): obj is Array<any>
 {
     return Array.isArray(obj);
 }
@@ -55,16 +79,16 @@ export function isDate(obj: any): obj is Date
     return obj instanceof Date && !isNaN(obj.valueOf());
 }
 
-export function noop()
+export function noop(): void
 {
 }
 
-export function normalizeBlank(obj: Object): any
+export function normalizeBlank<TObj extends Object>(obj: TObj|undefined|null): TObj|null
 {
     return isBlank(obj) ? null : obj;
 }
 
-export function isJsObject(o: any): boolean
+export function isJsObject(o: any): o is Function|Object
 {
     return o !== null && (typeof o === 'function' || typeof o === 'object');
 }
@@ -79,11 +103,9 @@ export function hasConstructor(value: Object, type: any): boolean
     return value.constructor === type;
 }
 
-export function isEmptyObject(obj: any)
+export function isEmptyObject(obj: any): boolean
 {
-    var name;
-
-    for (name in obj)
+    for (let _name in obj)
     {
         return false;
     }
