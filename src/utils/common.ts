@@ -54,7 +54,7 @@ export function merge(source1: {[key: string]: any}, source2: {[key: string]: an
  * @param length - Length of generated string
  * @returns number Generated string
  */
-export function generateId(length: number)
+export function generateId(length: number): string
 {
     var result = "";
 
@@ -67,10 +67,27 @@ export function generateId(length: number)
 }
 
 /**
+ * Generates random string of specified length from possible characters
+ * @param length - Length of generated string
+ * @param possible - Possible characters used for generation of string
+ */
+export function generateRandomString(length: number, possible: string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'): string
+{
+    let text = '';
+
+    for (let i = 0;i < length; i++)
+    {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return text;
+}
+
+/**
  * Converts string in that way that first letter will be lowerCase
  * @param text - Text to be converted
  */
-export function firstToLowerCase(text: string)
+export function firstToLowerCase(text: string): string
 {
     return text.charAt(0).toLowerCase() + text.substr(1);
 }
@@ -102,7 +119,7 @@ export function isDescendant(parent: HTMLElement, child: HTMLElement): boolean
  * @param element - Html element which offset is counted
  * @param doc - Html document to be used for extracting scroll offset
  */
-export function offset(element: HTMLElement, doc?: HTMLDocument)
+export function offset(element: HTMLElement, doc?: Document)
 {
     doc = doc || document;
 
@@ -123,7 +140,7 @@ export function offset(element: HTMLElement, doc?: HTMLDocument)
  * @param html - Html string to be converted to DOM
  * @param doc - Optional html document to be used
  */
-export function htmlToElement(html: string, doc?: HTMLDocument): HTMLElement
+export function htmlToElement(html: string, doc?: Document): HTMLElement
 {
     let htmlDocument = document;
 

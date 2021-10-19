@@ -1,10 +1,11 @@
 # Changelog
 
-## Version 1.2.0 (2020-08-04)
+## Version 1.2.0 (2021-10-19)
 
 ### Features
 
 - added `isOverflown` function which checks whether has provided *element* overflow
+- added `generateRandomString` function which generates random string of specified length from possible characters
 - added `BindThis` decorator, which binds method to its parent class instance
 - added `DebounceCall` decorator, which debounces call of method for specified time
 - added `CallOnce` decorator, which calls method only once per specified time
