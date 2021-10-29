@@ -292,3 +292,12 @@ export function isOverflown(element: HTMLElement): boolean
 {
     return element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 }
+
+/**
+ * Normalizes string, removing accent
+ * @param value - String to be normalized
+ */
+export function normalizeAccent(value: string): string
+{
+    return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
