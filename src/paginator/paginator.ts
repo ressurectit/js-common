@@ -23,7 +23,7 @@ export class Paginator
     /**
      * Number of all items to be used for counting paging
      */
-    private _itemCount: number;
+    private _itemCount: number = 0;
 
     //######################### public methods #########################
 

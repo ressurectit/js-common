@@ -189,7 +189,7 @@ export function getEnumValues<TEnum = unknown>(enumType: Enum<TEnum>): ValueName
 export function getValue<TValue = unknown>(object: Dictionary, expression: string): TValue
 export function getValue(object: Dictionary, expression: string): unknown
 {
-    return expression.split('.').reduce((o,i) =>
+    return expression.split('.').reduce((o: Dictionary<any>, i) =>
     {
         if(o)
         {

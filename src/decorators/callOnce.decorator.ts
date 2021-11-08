@@ -1,4 +1,4 @@
-import {Dictionary, Func} from '../types';
+import {Func} from '../types';
 import {isFunction, isPresent} from '../utils';
 
 /**
@@ -7,14 +7,14 @@ import {isFunction, isPresent} from '../utils';
  */
 export function CallOnce(time: number): MethodDecorator
 {
-    return function(_target: Dictionary, propertyKey: string, descriptor: PropertyDescriptor)
+    return function(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor)
     {
-        let timeout: number;
-        const originalValue: Func = descriptor.value ?? descriptor.get();
+        let timeout: number|null;
+        const originalValue: Func = descriptor.value ?? descriptor.get?.();
 
         if(!isFunction(originalValue))
         {
-            throw new Error(`Unable to apply @CallOnce() decorator to '${propertyKey}', it is not a method.`);
+            throw new Error(`Unable to apply @CallOnce() decorator to '${propertyKey.toString()}', it is not a method.`);
         }
 
         descriptor.value = function(...args: unknown[]): void
@@ -28,7 +28,11 @@ export function CallOnce(time: number): MethodDecorator
 
             timeout = setTimeout(() =>
             {
-                clearTimeout(timeout);
+                if(isPresent(timeout))
+                {
+                    clearTimeout(timeout);
+                }
+                
                 timeout = null;
             }, time) as any;
         };
