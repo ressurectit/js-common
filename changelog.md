@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.0.1 (2021-11-08)
+
+### Bug Fixes
+
+- fixed not working `Node.js` usage
+
 ## Version 2.0.0 (2021-11-08)
 
 ### Features
