@@ -1,13 +1,4 @@
-import {globalDefine} from './jsDevMode';
-import {isBlank} from './utils';
-
-globalDefine(global =>
-{
-    if(isBlank(global['jsDevMode']))
-    {
-        global['jsDevMode'] = false;
-    }
-});
+import './initJsDevMode';
 
 export * from './jsDevMode';
 export * from './encoder/encoder';

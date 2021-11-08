@@ -4,7 +4,7 @@
     "description": "Common javascript tools, utilities and other usefull stuff",
     "type": "module",
     "sideEffects": [
-        "dist/*/index.js"
+        "dist/*/initJsDevMode.js"
     ],
     "scripts": {
         "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS",
