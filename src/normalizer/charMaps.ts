@@ -1,4 +1,4 @@
-import {StringDictionary} from '../types';
+import {StringDictionary} from '../types/dictionaries';
 
 /**
  * Char map for slovak language

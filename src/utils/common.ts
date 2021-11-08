@@ -1,8 +1,10 @@
 import extendLib from 'extend';
 
 import {isPresent} from './lang';
-import {AsDictionary, Dictionary, Enum, StringDictionary, ValueNamePair} from '../types';
-import {normalize} from '../normalizer';
+import {AsDictionary, Dictionary, StringDictionary} from '../types/dictionaries';
+import {Enum} from '../types/enums';
+import {ValueNamePair} from '../types/valueNamePair';
+import {normalize} from '../normalizer/normalizer';
 
 /**
  * Reverse current string and returns new reverse string

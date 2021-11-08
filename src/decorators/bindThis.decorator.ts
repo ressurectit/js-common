@@ -1,5 +1,5 @@
-import {Func} from '../types';
-import {isFunction} from '../utils';
+import {Func} from '../types/functions';
+import {isFunction} from '../utils/lang';
 
 /**
  * Binds function to this, object instance where is defined, it is importat to place it in correct order with other decorators, usually should be first

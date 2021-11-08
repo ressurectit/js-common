@@ -1,5 +1,5 @@
-import {Func} from '../types';
-import {isFunction, isPresent} from '../utils';
+import {Func} from '../types/functions';
+import {isFunction, isPresent} from '../utils/lang';
 
 /**
  * Method is called only once for specified time, other calls during this time are blocked and it does nothing and returns null

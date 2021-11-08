@@ -1,5 +1,5 @@
-import {Func} from '../types';
-import {isFunction, isPresent} from '../utils';
+import {Func} from '../types/functions';
+import {isFunction, isPresent} from '../utils/lang';
 
 /**
  * Adds special functionality to method call, that debounce method call for specified time
