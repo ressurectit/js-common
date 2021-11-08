@@ -7,7 +7,7 @@
         "dist/*/index.js"
     ],
     "scripts": {
-        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && api-extractor run --local --verbose -c api-extractor.json",
+        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS",
         "clean": "rimraf temp dist **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map ./*.d.ts ./*d.ts.map",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
@@ -70,13 +70,13 @@
     "esm2015": "./dist/es2015/index.js",
     "es2020": "./dist/es2020/index.js",
     "esm2020": "./dist/es2020/index.js",
-    "typings": "./common.d.ts",
+    "typings": "./src/index.d.ts",
     "exports": {
         "./package.json": {
             "default": "./package.json"
         },
         ".": {
-            "types": "./common.d.ts",
+            "types": "./src/index.d.ts",
             "es5": "./dist/es5/index.js",
             "es2015": "./dist/es2015/index.js",
             "es2020": "./dist/es2020/index.js",

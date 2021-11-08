@@ -9,7 +9,7 @@ globalDefine(global =>
     }
 });
 
-export {globalDefine};
+export * from './jsDevMode';
 export * from './encoder/encoder';
 export * from './paginator/paginator';
 export * from './normalizer';
