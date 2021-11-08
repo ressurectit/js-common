@@ -1,5 +1,3 @@
-import './initJsDevMode';
-
 export * from './jsDevMode';
 export * from './encoder/encoder';
 export * from './paginator/paginator';
