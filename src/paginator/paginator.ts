@@ -189,7 +189,7 @@ export class Paginator
      */
     public getIndexesPerPage(): number[]
     {
-        let result: number[] = [];
+        const result: number[] = [];
 
         if(isNaN(this.getOffset()))
         {
@@ -216,18 +216,20 @@ export class Paginator
      */
     public getPagesWithDispersion(dispersion: number): number[]
     {
-        var currentPage = this.getPage();
-        var pageCount = this.getPageCount();
-        var numberOfPages = Math.min(pageCount, Math.max(0, dispersion) * 2 + 1) - 1;
-        var startingPage = Math.max(this._base, currentPage - dispersion);
+        const currentPage = this.getPage();
+        const pageCount = this.getPageCount();
+        const numberOfPages = Math.min(pageCount, Math.max(0, dispersion) * 2 + 1) - 1;
+        let startingPage = Math.max(this._base, currentPage - dispersion);
 
         if ((currentPage + dispersion) > pageCount)
         {
             startingPage = pageCount - numberOfPages;
         }
 
-        var x, endingPage = startingPage + numberOfPages;
-        var result: number[] = [];
+        let x: number;
+        const endingPage = startingPage + numberOfPages;
+
+        const result: number[] = [];
 
         for (x = startingPage; x <= endingPage; x++)
         {
@@ -244,12 +246,13 @@ export class Paginator
      */
     public getPagesWithTrimDispersion(dispersion: number): number[]
     {
-        var currentPage = this.getPage();
-        var lastPage = this.getLastPage();
-        var startingPage = Math.max(this._base, currentPage - dispersion);
-        var x, endingPage = Math.min(lastPage, currentPage + dispersion);
+        const currentPage = this.getPage();
+        const lastPage = this.getLastPage();
+        const startingPage = Math.max(this._base, currentPage - dispersion);
+        let x: number;
+        const endingPage = Math.min(lastPage, currentPage + dispersion);
 
-        var result: number[] = [];
+        const result: number[] = [];
         
         for (x = startingPage; x <= endingPage; x++)
         {
@@ -267,13 +270,13 @@ export class Paginator
     public getPagesWithUniformDistribution(numberOfPages: number): number[]
     {
         numberOfPages = Math.max(1, numberOfPages - 1);
-        var pageCount = this.getPageCount();
+        const pageCount = this.getPageCount();
         numberOfPages = Math.min(numberOfPages, pageCount - 1);
-        var step = pageCount / numberOfPages;
-        var page = this.GetFirstPage();
-        var x;
+        const step = pageCount / numberOfPages;
+        let page = this.GetFirstPage();
+        let x;
 
-        var result: number[] = [];
+        const result: number[] = [];
 
         for (x = 0; x < numberOfPages; x++)
         {

@@ -1,7 +1,7 @@
 import extendLib from 'extend';
 
 import {isPresent} from './lang';
-import {Dictionary, ValueNamePair} from '../types';
+import {Dictionary, Enum, ValueNamePair} from '../types';
 import {normalize} from '../normalizer';
 
 /**
@@ -11,7 +11,7 @@ import {normalize} from '../normalizer';
  */
 export function reverseString(str: string): string
 {
-    return str.split("").reverse().join("");
+    return str.split('').reverse().join('');
 }
 
 /**
@@ -20,8 +20,8 @@ export function reverseString(str: string): string
  * @param objectN - Objects that will be used for extending, if deep is used first here is target object
  * @returns Object Extended object with properties from other objects
  */
-export function extend<TResult>(deepOrObject: boolean | Object, ...objectN: Object[]): TResult;
-export function extend(deepOrObject: boolean | Object, ...objectN: Object[]): Object
+export function extend<TResult>(deepOrObject: boolean | Dictionary, ...objectN: Dictionary[]): TResult;
+export function extend(deepOrObject: boolean | Dictionary, ...objectN: Dictionary[]): Dictionary
 {
     return extendLib.apply(null, [deepOrObject, ...objectN]);
 }
@@ -32,16 +32,16 @@ export function extend(deepOrObject: boolean | Object, ...objectN: Object[]): Ob
  * @param source2 - Second source object
  * @returns Object Object containing properties from source1 and source2 objects
  */
-export function merge(source1: {[key: string]: any}, source2: {[key: string]: any}): Object
+export function merge(source1: Dictionary, source2: Dictionary): Dictionary
 {
-    var resultObj: {[key: string]: any} = {};
+    const resultObj: Dictionary = {};
 
-    for (var attrname in source1)
+    for (const attrname in source1)
     {
         resultObj[attrname] = source1[attrname];
     }
 
-    for (var attrname in source2)
+    for (const attrname in source2)
     {
         resultObj[attrname] = source2[attrname];
     }
@@ -56,9 +56,9 @@ export function merge(source1: {[key: string]: any}, source2: {[key: string]: an
  */
 export function generateId(length: number): string
 {
-    var result = "";
+    let result = '';
 
-    for(var x = 0; x < length; x++)
+    for(let x = 0; x < length; x++)
     {
         result += String.fromCharCode(Math.round(Math.random() * 25 + 97));
     }
@@ -123,7 +123,7 @@ export function offset(element: HTMLElement, doc?: Document)
 {
     doc = doc || document;
 
-    let rect = element.getBoundingClientRect(),
+    const rect = element.getBoundingClientRect(),
         scrollLeft = window.pageXOffset || doc.documentElement.scrollLeft,
         scrollTop = window.pageYOffset || doc.documentElement.scrollTop;
 
@@ -149,7 +149,7 @@ export function htmlToElement(html: string, doc?: Document): HTMLElement
         htmlDocument = doc;
     }
 
-    let template = htmlDocument.createElement('template');
+    const template = htmlDocument.createElement('template');
     html = html.trim();
     template.innerHTML = html;
 
@@ -160,9 +160,9 @@ export function htmlToElement(html: string, doc?: Document): HTMLElement
  * Extract values from enum type
  * @param enumType - Enum type that will have extracted values
  */
-export function getEnumValues(enumType: any): ValueNamePair[]
+export function getEnumValues<TEnum = unknown>(enumType: Enum<TEnum>): ValueNamePair[]
 {
-    let result: ValueNamePair[] = [];
+    const result: ValueNamePair[] = [];
 
     Object.keys(enumType).forEach(key =>
     {
@@ -174,9 +174,9 @@ export function getEnumValues(enumType: any): ValueNamePair[]
         result.push(
         {
             value: key,
-            name: enumType[key]
+            name: enumType[+key]
         });
-    })
+    });
 
     return result;
 }
@@ -186,7 +186,8 @@ export function getEnumValues(enumType: any): ValueNamePair[]
  * @param object - Object which property value will be obtained
  * @param expression - Expression for obtaining value
  */
-export function getValue(object: any, expression: string): any
+export function getValue<TValue = unknown>(object: Dictionary, expression: string): TValue
+export function getValue(object: Dictionary, expression: string): unknown
 {
     return expression.split('.').reduce((o,i) =>
     {
@@ -205,9 +206,9 @@ export function getValue(object: any, expression: string): any
  * @param value - Value that will be set
  * @param expression - Expression for setting value
  */
-export function setValue(object: any, value: any, expression: string): void
+export function setValue(object: Dictionary<any>, value: unknown, expression: string): void
 {
-    let parts = expression.split('.');
+    const parts = expression.split('.');
 
     parts.forEach((part, index) =>
     {
@@ -222,7 +223,7 @@ export function setValue(object: any, value: any, expression: string): void
             return;
         }
 
-        object = object[part] = object[part] || {};
+        object = object[part] = object[part] ?? {};
     });
 }
 
@@ -231,11 +232,11 @@ export function setValue(object: any, value: any, expression: string): void
  * @param str - String containing substitution constants
  * @param args - Arguments that are used for replacement
  */
-export function format(str: string, ...args: any[])
+export function format(str: string, ...args: unknown[]): string
 {
     let i = 0;
 
-    return str.replace(/((?!%).)%s/g, (_sub, substArgs) => `${substArgs[0]}${args[i++]}`).replace(/%%s/g, "%s");
+    return str.replace(/((?!%).)%s/g, (_sub, substArgs) => `${substArgs[0]}${args[i++]}`).replace(/%%s/g, '%s');
 }
 
 /**
@@ -299,5 +300,5 @@ export function isOverflown(element: HTMLElement): boolean
  */
 export function normalizeAccent(value: string): string
 {
-    return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }

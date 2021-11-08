@@ -1,30 +1,22 @@
 import {Dictionary} from '../types';
 
 /**
- * Available char maps
+ * Char map for slovak language
  */
-export class NormalizationCharMaps
+export const SlovakCharmap: Dictionary<string> = 
 {
-    /**
-     * Gets char map for slovak language
-     */
-    public static get slovak(): Dictionary<string>
-    {
-        return {
-            "áä": "a",
-            "éě": "e",
-            "í": "i",
-            "óô": "o",
-            "úů": "u",
-            "ý": "y",
-            "č": "c",
-            "ď": "d",
-            "ľĺ": "l",
-            "ň": "n",
-            "řŕ": "r",
-            "š": "s",
-            "ť": "t",
-            "ž": "z",
-        };
-    }
-}
+    'áä': 'a',
+    'éě': 'e',
+    'í': 'i',
+    'óô': 'o',
+    'úů': 'u',
+    'ý': 'y',
+    'č': 'c',
+    'ď': 'd',
+    'ľĺ': 'l',
+    'ň': 'n',
+    'řŕ': 'r',
+    'š': 's',
+    'ť': 't',
+    'ž': 'z',
+};

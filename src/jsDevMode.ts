@@ -7,7 +7,7 @@ declare global
  * Defines global variable
  * @param globalDefineFunc - Global variable definition callback
  */
-export function globalDefine(globalDefineFunc: (global: any) => void)
+export function globalDefine(globalDefineFunc: (global: any) => void): void
 {
     globalDefineFunc(typeof window != 'undefined' && window || typeof self != 'undefined' && self || typeof global != 'undefined' && global);
 }

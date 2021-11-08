@@ -6,10 +6,10 @@ export enum OrderByDirection
     /**
      * Items are ordered ascending
      */
-    Ascendant,
+    Ascending,
     
     /**
      * Items are ordered descending
      */
-    Descendant
+    Descending
 }

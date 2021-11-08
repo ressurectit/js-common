@@ -80,6 +80,7 @@ export function isDate(obj: any): obj is Date
 }
 
 export function noop(): void
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 {
 }
 
@@ -105,7 +106,7 @@ export function hasConstructor(value: Object, type: any): boolean
 
 export function isEmptyObject(obj: any): boolean
 {
-    for (let _name in obj)
+    for (const _name in obj)
     {
         return false;
     }

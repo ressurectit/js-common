@@ -5,16 +5,14 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:ressurectit/recommended"
+        "plugin:@typescript-eslint/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint",
-        "ressurectit"
+        "@typescript-eslint"
     ],
     "rules": {
         "indent": "off",

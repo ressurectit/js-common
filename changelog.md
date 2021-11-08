@@ -2,12 +2,23 @@
 
 ## Version 2.0.0 (2021-11-08)
 
+### Features
+
+- added `NoopAction` type that represents function definition with no variables and no return type
+- added `Action` type that represents function definition with variable arguments and no return type
+- added `Func<TResult>` type that represents function definition with variable arguments and return type
+- added `Enum<E>` type that represents enum type
+
 ### BREAKING CHANGES
 
 - dropped support of `Node.js <= 12.20`
 - added strict compilation
 - using latest package.json features
 - removed `initializeJsDevMode` and marked index.js as `sideEffect`
+- renamed `Ascendant` to `Ascending` in `OrderByDirection`
+- renamed `Descendant` to `Descending` in `OrderByDirection`
+- removed `NormalizationCharMaps` and moved static properties to separate exports
+    - new `SlovakCharmap` const for better tree shaking
 
 ## Version 1.2.0 (2021-10-29)
 

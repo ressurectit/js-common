@@ -1,11 +1,12 @@
+import {Dictionary, Func} from '../types';
 import {isFunction} from '../utils';
 
 /**
  * Binds function to this, object instance where is defined, it is importat to place it in correct order with other decorators, usually should be first
  */
-export function BindThis(_target: Object, propertyKey: string, descriptor: PropertyDescriptor)
+export function BindThis(_target: Dictionary, propertyKey: string, descriptor: PropertyDescriptor): TypedPropertyDescriptor<Func>
 {
-    let originalValue: Function = descriptor.value ?? descriptor.get();
+    const originalValue: Func = descriptor.value ?? descriptor.get();
 
     if(!isFunction(originalValue))
     {
@@ -14,9 +15,9 @@ export function BindThis(_target: Object, propertyKey: string, descriptor: Prope
 
     return {
         configurable: true,
-        get(this: any): any
+        get(this: unknown): Func
         {
-            const bound: any = originalValue.bind(this);
+            const bound: Func = originalValue.bind(this);
 
             Object.defineProperty(this,
                                   propertyKey,
