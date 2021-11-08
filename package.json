@@ -84,7 +84,8 @@
             "es2020": "./dist/es2020/index.js",
             "esm2020": "./dist/es2020/index.js",
             "node": {
-                "require": "./dist/module/indexNode.cjs"
+                "require": "./dist/module/indexNode.cjs",
+                "import": "./dist/es2015/indexNode.js"
             },
             "browser": "./dist/es2015/index.js",
             "default": "./dist/es2020/index.js"
