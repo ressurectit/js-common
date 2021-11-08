@@ -7,7 +7,7 @@
         "dist/*/index.js"
     ],
     "scripts": {
-        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && npm run rename-commonjs",
+        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && npm run build:cjs",
         "clean": "rimraf temp dist **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map ./*.d.ts ./*d.ts.map",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
@@ -20,7 +20,10 @@
         "bundle": "npm run clean && npm run build",
         "deploy": "npm publish --loglevel error",
         "deploy:next": "npm publish --tag next --loglevel error",
-        "rename-commonjs": "node node_modules/rename-cli/bin.js dist/module/**/*.js {{f}}.cjs && replace-in-file .js\"\" .cjs\"\" dist/module/**/*.js.map",
+        "build:cjs": "npm run build:cjs:rename && npm run build:cjs:replace:map && npm run build:cjs:replace:relative",
+        "build:cjs:rename": "node node_modules/rename-cli/bin.js dist/module/**/*.js {{f}}.cjs",
+        "build:cjs:replace:map": "replace-in-file .js\"\" .cjs\"\" dist/module/**/*.js.map",
+        "build:cjs:replace:relative": "replace-in-file /require\\(\\\"[.](.*)\\\"/g require(\\\".$1.cjs\\\" dist/module/**/*.cjs --isRegex",
         "doc": "path-exists docs && npm run doc:generate || echo \"No docs generated!\"",
         "doc:generate": "npm run doc:generate:common && npm run doc:save",
         "doc:save": "cd docs && git add . && git commit -m \"INT: updated API docs js-common\" && git push && cd ..",
