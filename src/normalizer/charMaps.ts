@@ -1,9 +1,9 @@
-import {Dictionary} from '../types';
+import {StringDictionary} from '../types';
 
 /**
  * Char map for slovak language
  */
-export const SlovakCharmap: Dictionary<string> = 
+export const SlovakCharmap: StringDictionary = 
 {
     'áä': 'a',
     'éě': 'e',

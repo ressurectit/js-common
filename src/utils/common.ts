@@ -1,7 +1,7 @@
 import extendLib from 'extend';
 
 import {isPresent} from './lang';
-import {Dictionary, Enum, ValueNamePair} from '../types';
+import {AsDictionary, Dictionary, Enum, StringDictionary, ValueNamePair} from '../types';
 import {normalize} from '../normalizer';
 
 /**
@@ -15,38 +15,85 @@ export function reverseString(str: string): string
 }
 
 /**
+ * Extends target object with source
+ * @param deep - Indication whether deep copy should be performed
+ * @param target - Object that will extended
+ * @param source - Object that will be used for extending
+ */
+export function extend<T, U>(deep: boolean, target: T, source: U): T & U;
+/**
+ * Extends target object with source objects
+ * @param deep - Indication whether deep copy should be performed
+ * @param target - Object that will extended
+ * @param source1 - Object that will be used for extending
+ * @param source2 - Object that will be used for extending
+ */
+export function extend<T, U, V>(deep: boolean, target: T, source1: U, source2: V): T & U & V;
+/**
+ * Extends target object with source objects
+ * @param deep - Indication whether deep copy should be performed
+ * @param target - Object that will extended
+ * @param source1 - Object that will be used for extending
+ * @param source2 - Object that will be used for extending
+ * @param source3 - Object that will be used for extending
+ */
+export function extend<T, U, V, W>(deep: boolean, target: T, source1: U, source2: V, source3: W): T & U & V & W;
+/**
+ * Extends target object with source objects
+ * @param deep - Indication whether deep copy should be performed
+ * @param target - Object that will extended
+ * @param source1 - Object that will be used for extending
+ * @param source2 - Object that will be used for extending
+ * @param source3 - Object that will be used for extending
+ * @param source4 - Object that will be used for extending
+ */
+export function extend<T, U, V, W, X>(deep: boolean, target: T, source1: U, source2: V, source3: W, source4: X): T & U & V & W & X;
+/**
+ * Extends target object with source
+ * @param target - Object that will extended
+ * @param source - Object that will be used for extending
+ */
+export function extend<T, U>(target: T, source: U): T & U;
+/**
+ * Extends target object with source
+ * @param target - Object that will extended
+ * @param source1 - Object that will be used for extending
+ * @param source2 - Object that will be used for extending
+ */
+export function extend<T, U, V>(target: T, source1: U, source2: V): T & U & V;
+/**
+ * Extends target object with source
+ * @param target - Object that will extended
+ * @param source1 - Object that will be used for extending
+ * @param source2 - Object that will be used for extending
+ * @param source3 - Object that will be used for extending
+ */
+export function extend<T, U, V, W>(target: T, source1: U, source2: V, source3: W): T & U & V & W;
+/**
+ * Extends target object with source
+ * @param target - Object that will extended
+ * @param source1 - Object that will be used for extending
+ * @param source2 - Object that will be used for extending
+ * @param source3 - Object that will be used for extending
+ * @param source4 - Object that will be used for extending
+ */
+export function extend<T, U, V, W, X>(target: T, source1: U, source2: V, source3: W, source4: X): T & U & V & W & X;
+/**
  * Extends one object with additional properties from other objects, supports deep extend
  * @param deepOrObject - Object to be extended or indication that deep copy should be performed
  * @param objectN - Objects that will be used for extending, if deep is used first here is target object
  * @returns Object Extended object with properties from other objects
  */
-export function extend<TResult>(deepOrObject: boolean | Dictionary, ...objectN: Dictionary[]): TResult;
-export function extend(deepOrObject: boolean | Dictionary, ...objectN: Dictionary[]): Dictionary
+export function extend<TResult>(deepOrObject: boolean | Dictionary<any>, ...objectN: Dictionary<any>[]): TResult;
+/**
+ * Extends one object with additional properties from other objects, supports deep extend
+ * @param deepOrObject - Object to be extended or indication that deep copy should be performed
+ * @param objectN - Objects that will be used for extending, if deep is used first here is target object
+ * @returns Object Extended object with properties from other objects
+ */
+export function extend(deepOrObject: boolean | Dictionary<any>, ...objectN: Dictionary<any>[]): Dictionary
 {
     return extendLib.apply(null, [deepOrObject, ...objectN]);
-}
-
-/**
- * Merges properties of two separate object into new third one
- * @param source1 - First source object
- * @param source2 - Second source object
- * @returns Object Object containing properties from source1 and source2 objects
- */
-export function merge(source1: Dictionary, source2: Dictionary): Dictionary
-{
-    const resultObj: Dictionary = {};
-
-    for (const attrname in source1)
-    {
-        resultObj[attrname] = source1[attrname];
-    }
-
-    for (const attrname in source2)
-    {
-        resultObj[attrname] = source2[attrname];
-    }
-
-    return resultObj;
 }
 
 /**
@@ -160,7 +207,7 @@ export function htmlToElement(html: string, doc?: Document): HTMLElement
  * Extract values from enum type
  * @param enumType - Enum type that will have extracted values
  */
-export function getEnumValues<TEnum = unknown>(enumType: Enum<TEnum>): ValueNamePair[]
+export function getEnumValues<TEnum extends Enum>(enumType: TEnum): ValueNamePair[]
 {
     const result: ValueNamePair[] = [];
 
@@ -186,10 +233,10 @@ export function getEnumValues<TEnum = unknown>(enumType: Enum<TEnum>): ValueName
  * @param object - Object which property value will be obtained
  * @param expression - Expression for obtaining value
  */
-export function getValue<TValue = unknown>(object: Dictionary, expression: string): TValue
-export function getValue(object: Dictionary, expression: string): unknown
+export function getValue<TValue = unknown>(object: Dictionary<any>, expression: string): TValue
+export function getValue(object: Dictionary<any>, expression: string): unknown
 {
-    return expression.split('.').reduce((o: Dictionary<any>, i) =>
+    return expression.split('.').reduce((o, i) =>
     {
         if(o)
         {
@@ -273,7 +320,7 @@ export function deserializeFromUrlQuery<TObj>(queryParamValue: string, reviver?:
  * @param id - Id that is going to be converted to valid html id
  * @param charMap - Character map used during normalization
  */
-export function validHtmlId(id: string, charMap: Dictionary<string> = {}): string
+export function validHtmlId(id: string, charMap: StringDictionary = {}): string
 {
     id = id.toLowerCase()
         .replace(/[\s]+/g, '-')
@@ -301,4 +348,14 @@ export function isOverflown(element: HTMLElement): boolean
 export function normalizeAccent(value: string): string
 {
     return value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+/**
+ * Converts instance of Class to equivalent Record type
+ * @param instance - Instance which type to be converted
+ * @typeparam TType - Type of instance
+ */
+export function asDictionary<TType>(instance: TType): AsDictionary<TType>
+{
+    return instance as AsDictionary<TType>;
 }

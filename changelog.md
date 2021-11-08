@@ -8,6 +8,9 @@
 - added `Action` type that represents function definition with variable arguments and no return type
 - added `Func<TResult>` type that represents function definition with variable arguments and return type
 - added `Enum<E>` type that represents enum type
+- added `AsDictionary<TType>` represents type that extracts class as type Record with property keys as index and unknown property values
+- added `asDictionary` function that converts instance of Class to equivalent Record type
+- added better typings for `extend`
 
 ### BREAKING CHANGES
 
@@ -17,6 +20,7 @@
 - removed `initializeJsDevMode` and marked index.js as `sideEffect`
 - renamed `Ascendant` to `Ascending` in `OrderByDirection`
 - renamed `Descendant` to `Descending` in `OrderByDirection`
+- removed `merge` util method, use native `Object.assign`
 - removed `NormalizationCharMaps` and moved static properties to separate exports
     - new `SlovakCharmap` const for better tree shaking
 
