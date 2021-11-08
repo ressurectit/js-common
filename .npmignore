@@ -1,8 +1,13 @@
 /.vscode
-/tests
+temp/
+.eslintrc.json
 api-extractor.json
-tsconfig.json
+appveyor.yml
 ngv.config.json
+tsconfig.json
+tsconfig.es2020.json
+tsconfig.es2015.json
+tsdoc-metadata.json
 
 *.ts
 !*.d.ts

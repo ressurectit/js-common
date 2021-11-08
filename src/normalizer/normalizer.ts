@@ -1,9 +1,11 @@
+import {Dictionary} from '../types';
+
 /**
  * Normalize strings, removes accent
  * @param str - String to be normalized
  * @param charMap - CharMap used for normalization
  */
-export function normalize(str: string, charMap: Object)
+export function normalize(str: string, charMap: Dictionary<string>)
 {
     Object.keys(charMap).forEach(chars =>
     {

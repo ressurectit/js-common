@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 2.0.0 (2021-11-08)
+
+### BREAKING CHANGES
+
+- dropped support of `Node.js <= 12.20`
+- added strict compilation
+- using latest package.json features
+- removed `initializeJsDevMode` and marked index.js as `sideEffect`
+
 ## Version 1.2.0 (2021-10-29)
 
 ### Features

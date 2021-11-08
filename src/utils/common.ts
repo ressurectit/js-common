@@ -1,7 +1,7 @@
 import extendLib from 'extend';
 
 import {isPresent} from './lang';
-import {ValueNamePair} from '../types';
+import {Dictionary, ValueNamePair} from '../types';
 import {normalize} from '../normalizer';
 
 /**
@@ -272,7 +272,7 @@ export function deserializeFromUrlQuery<TObj>(queryParamValue: string, reviver?:
  * @param id - Id that is going to be converted to valid html id
  * @param charMap - Character map used during normalization
  */
-export function validHtmlId(id: string, charMap: Object = {}): string
+export function validHtmlId(id: string, charMap: Dictionary<string> = {}): string
 {
     id = id.toLowerCase()
         .replace(/[\s]+/g, '-')

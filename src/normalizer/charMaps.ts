@@ -1,3 +1,5 @@
+import {Dictionary} from '../types';
+
 /**
  * Available char maps
  */
@@ -6,7 +8,7 @@ export class NormalizationCharMaps
     /**
      * Gets char map for slovak language
      */
-    public static get slovak(): Object
+    public static get slovak(): Dictionary<string>
     {
         return {
             "áä": "a",

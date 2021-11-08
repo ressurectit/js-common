@@ -1,7 +1,7 @@
-import {globalDefine as globalDefineFunc} from './jsDevMode';
+import {globalDefine} from './jsDevMode';
 import {isBlank} from './utils';
 
-globalDefineFunc(global =>
+globalDefine(global =>
 {
     if(isBlank(global['jsDevMode']))
     {
@@ -9,16 +9,7 @@ globalDefineFunc(global =>
     }
 });
 
-/**
- * Initialize jsDevMode global variable
- */
-export const initializeJsDevMode = () => {};
-
-/**
- * Defines global variable
- * @param globalDefineFunc - Global variable definition callback
- */
-export const globalDefine = globalDefineFunc;
+export {globalDefine};
 export * from './encoder/encoder';
 export * from './paginator/paginator';
 export * from './normalizer';

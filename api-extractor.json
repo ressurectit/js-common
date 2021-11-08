@@ -14,7 +14,10 @@
     },
     "dtsRollup":
     {
-        "enabled": true
+        "enabled": true,
+        "omitTrimmingComments": true,
+        "untrimmedFilePath": "<projectFolder>/<unscopedPackageName>.internal.d.ts",
+        "betaTrimmedFilePath": "<projectFolder>/<unscopedPackageName>.d.ts"
     },
     "tsdocMetadata":
     {},
@@ -41,6 +44,10 @@
             {
                 "logLevel": "none"
             },
+            "ae-forgotten-export":
+            {
+                "logLevel": "none"
+            },
             "default":
             {
                 "logLevel": "warning"
@@ -48,6 +55,10 @@
         },
         "tsdocMessageReporting":
         {
+            "tsdoc-inline-tag-missing-braces":
+            {
+                "logLevel": "none"
+            },
             "default":
             {
                 "logLevel": "warning"

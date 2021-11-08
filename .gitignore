@@ -1,12 +1,12 @@
 /node_modules
 /dist
 /docs
-/tests
 temp/
+
+/*/dist
 
 package-lock.json
 tsdoc-metadata.json
-
 *.d.ts
 *.log
 *.bak

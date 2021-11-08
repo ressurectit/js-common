@@ -16,7 +16,7 @@ export function CallOnce(time: number): MethodDecorator
             throw new Error(`Unable to apply @CallOnce() decorator to '${propertyKey}', it is not a method.`);
         }
 
-        descriptor.value = function()
+        descriptor.value = function(): any
         {
             let args = arguments;
 
