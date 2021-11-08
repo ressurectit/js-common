@@ -7,7 +7,7 @@
         "dist/*/index.js"
     ],
     "scripts": {
-        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS",
+        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && npm run rename-commonjs",
         "clean": "rimraf temp dist **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map ./*.d.ts ./*d.ts.map",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
@@ -20,6 +20,7 @@
         "bundle": "npm run clean && npm run build",
         "deploy": "npm publish --loglevel error",
         "deploy:next": "npm publish --tag next --loglevel error",
+        "rename-commonjs": "node node_modules/rename-cli/bin.js dist/module/**/*.js {{f}}.cjs && replace-in-file .js\"\" .cjs\"\" dist/module/**/*.js.map",
         "doc": "path-exists docs && npm run doc:generate || echo \"No docs generated!\"",
         "doc:generate": "npm run doc:generate:common && npm run doc:save",
         "doc:save": "cd docs && git add . && git commit -m \"INT: updated API docs js-common\" && git push && cd ..",
@@ -61,11 +62,12 @@
         "copyfiles": "2.4.1",
         "replace-in-file": "6.3.2",
         "path-exists-cli": "2.0.0",
+        "rename-cli": "6.2.1",
         "typescript": "4.4.4",
         "npm-git-version": "2.0.0"
     },
-    "main": "./dist/module/indexNode.js",
-    "module": "./dist/module/indexNode.js",
+    "main": "./dist/module/indexNode.cjs",
+    "module": "./dist/module/indexNode.cjs",
     "browser": "./dist/es2015/index.js",
     "esm2015": "./dist/es2015/index.js",
     "es2020": "./dist/es2020/index.js",
@@ -82,7 +84,7 @@
             "es2020": "./dist/es2020/index.js",
             "esm2020": "./dist/es2020/index.js",
             "node": {
-                "require": "./dist/module/indexNode.js"
+                "require": "./dist/module/indexNode.cjs"
             },
             "browser": "./dist/es2015/index.js",
             "default": "./dist/es2020/index.js"
