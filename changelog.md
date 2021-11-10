@@ -1,7 +1,12 @@
 # Changelog
 
-## Version 2.0.1 (2021-11-08)
+## Version 2.0.2 (2021-11-10)
 
+### Bug Fixes
+
+- fixed problem with `BindThis` decorator which could not bind to function returning `Promise`
+
+## Version 2.0.1 (2021-11-08)
 ### Bug Fixes
 
 - fixed not working `Node.js` usage
