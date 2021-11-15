@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.0.3 (2021-11-15)
+
+### Bug Fixes
+
+- fixed problem with `Node.js` usage from `import` `module`
+
 ## Version 2.0.2 (2021-11-10)
 
 ### Bug Fixes

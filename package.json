@@ -7,7 +7,7 @@
         "dist/*/index.js"
     ],
     "scripts": {
-        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && npm run build:cjs",
+        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2015 --outDir dist/es && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && npm run build:cjs && npm run build:mjs",
         "clean": "rimraf temp dist **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map ./*.d.ts ./*d.ts.map",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
@@ -24,6 +24,10 @@
         "build:cjs:rename": "node node_modules/rename-cli/bin.js dist/module/**/*.js {{f}}.cjs",
         "build:cjs:replace:map": "replace-in-file .js\"\" .cjs\"\" dist/module/**/*.js.map",
         "build:cjs:replace:relative": "replace-in-file /require\\(\\\"[.](.*)\\\"/g require(\\\".$1.cjs\\\" dist/module/**/*.cjs --isRegex",
+        "build:mjs": "npm run build:mjs:rename && npm run build:mjs:replace:map && npm run build:mjs:replace:relative",
+        "build:mjs:rename": "node node_modules/rename-cli/bin.js dist/es/**/*.js {{f}}.mjs",
+        "build:mjs:replace:map": "replace-in-file .js\"\" .mjs\"\" dist/es/**/*.js.map",
+        "build:mjs:replace:relative": "replace-in-file /from\\s'[.](.*)'/g \"from '.$1.mjs'\" dist/es/**/*.mjs --isRegex",
         "doc": "path-exists docs && npm run doc:generate || echo \"No docs generated!\"",
         "doc:generate": "npm run doc:generate:common && npm run doc:save",
         "doc:save": "cd docs && git add . && git commit -m \"INT: updated API docs js-common\" && git push && cd ..",
@@ -62,7 +66,6 @@
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",
         "rimraf": "3.0.2",
-        "copyfiles": "2.4.1",
         "replace-in-file": "6.3.2",
         "path-exists-cli": "2.0.0",
         "rename-cli": "6.2.1",
@@ -88,7 +91,7 @@
             "esm2020": "./dist/es2020/index.js",
             "node": {
                 "require": "./dist/module/indexNode.cjs",
-                "import": "./dist/es2015/indexNode.js"
+                "import": "./dist/es/indexNode.mjs"
             },
             "browser": "./dist/es2015/index.js",
             "default": "./dist/es2020/index.js"
