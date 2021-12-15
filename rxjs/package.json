@@ -1,0 +1,11 @@
+{
+    "name": "@jscrpt/common-rxjs",
+    "sideEffects": false,
+    "main": "../module/rxjs/src/index.cjs",
+    "module": "../module/rxjs/src/index.cjs",
+    "browser": "../es2015/rxjs/src/index.js",
+    "esm2015": "../es2015/rxjs/src/index.js",
+    "es2020": "../es2020/rxjs/src/index.js",
+    "esm2020": "../es2020/rxjs/src/index.js",
+    "typings": "./src/index.d.ts"
+  }

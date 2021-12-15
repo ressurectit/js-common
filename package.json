@@ -7,8 +7,8 @@
         "dist/*/index.js"
     ],
     "scripts": {
-        "build": "npm run tsc && npm run tsc -- -t es2015 --outDir dist/es2015 && npm run tsc -- -t es2015 --outDir dist/es && npm run tsc -- -t es2020 --outDir dist/es2020 && npm run tsc -- -t es2015 --outDir dist/module -m CommonJS && npm run build:cjs && npm run build:mjs",
-        "clean": "rimraf temp dist **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map ./*.d.ts ./*d.ts.map",
+        "build": "npm run tsc -- --declaration --declarationDir . --declarationMap && npm run tsc -- -t es2015 --outDir es2015 && npm run tsc -- -t es2015 --outDir es && npm run tsc -- -t es2020 --outDir es2020 && npm run tsc -- -t es2015 --outDir module -m CommonJS && npm run build:cjs && npm run build:mjs",
+        "clean": "rimraf temp es es5 es2015 es2020 module **/tsdoc-metadata.json src/**/*.d.ts src/**/*.d.ts.map rxjs/**/*.d.ts rxjs/**/*.d.ts.map ./*.d.ts ./*d.ts.map",
         "clean:deps": "rimraf package-lock.json node_modules",
         "clean:all": "npm run clean && npm run clean:deps",
         "tsc": "tsc",
@@ -21,19 +21,22 @@
         "deploy": "npm publish --loglevel error",
         "deploy:next": "npm publish --tag next --loglevel error",
         "build:cjs": "npm run build:cjs:rename && npm run build:cjs:replace:map && npm run build:cjs:replace:relative",
-        "build:cjs:rename": "node node_modules/rename-cli/bin.js dist/module/**/*.js {{f}}.cjs",
-        "build:cjs:replace:map": "replace-in-file .js\"\" .cjs\"\" dist/module/**/*.js.map",
-        "build:cjs:replace:relative": "replace-in-file /require\\(\\\"[.](.*)\\\"/g require(\\\".$1.cjs\\\" dist/module/**/*.cjs --isRegex",
+        "build:cjs:rename": "node node_modules/rename-cli/bin.js module/**/*.js {{f}}.cjs",
+        "build:cjs:replace:map": "replace-in-file .js\"\" .cjs\"\" module/**/*.js.map",
+        "build:cjs:replace:relative": "replace-in-file /require\\(\\\"[.](.*)\\\"/g require(\\\".$1.cjs\\\" module/**/*.cjs --isRegex",
         "build:mjs": "npm run build:mjs:rename && npm run build:mjs:replace:map && npm run build:mjs:replace:relative",
-        "build:mjs:rename": "node node_modules/rename-cli/bin.js dist/es/**/*.js {{f}}.mjs",
-        "build:mjs:replace:map": "replace-in-file .js\"\" .mjs\"\" dist/es/**/*.js.map",
-        "build:mjs:replace:relative": "replace-in-file /from\\s'[.](.*)'/g \"from '.$1.mjs'\" dist/es/**/*.mjs --isRegex",
+        "build:mjs:rename": "node node_modules/rename-cli/bin.js es/**/*.js {{f}}.mjs",
+        "build:mjs:replace:map": "replace-in-file .js\"\" .mjs\"\" es/**/*.js.map",
+        "build:mjs:replace:relative": "replace-in-file /from\\s'[.](.*)'/g \"from '.$1.mjs'\" es/**/*.mjs --isRegex",
         "doc": "path-exists docs && npm run doc:generate || echo \"No docs generated!\"",
-        "doc:generate": "npm run doc:generate:common && npm run doc:save",
-        "doc:save": "cd docs && git add . && git commit -m \"INT: updated API docs js-common\" && git push && cd ..",
+        "doc:generate": "npm run doc:generate:common && npm run doc:generate:rxjs && npm run doc:save",
+        "doc:save": "cd docs && git add . && git commit -m \"INT: updated API docs js-common\" && git pull && git push && cd ..",
         "doc:generate:common": "rimraf docs/content/api/js-common && npm run doc:json:common && npm run doc:md:common",
         "doc:json:common": "api-extractor run --local --verbose -c api-extractor.json",
-        "doc:md:common": "api-documenter markdown -i temp -o docs/content/api/js-common && rimraf temp"
+        "doc:md:common": "api-documenter markdown -i temp -o docs/content/api/js-common && rimraf temp",
+        "doc:generate:rxjs": "rimraf docs/content/api/js-common-rxjs && npm run doc:json:rxjs && npm run doc:md:rxjs",
+        "doc:json:rxjs": "api-extractor run --local --verbose -c rxjs/api-extractor.json",
+        "doc:md:rxjs": "api-documenter markdown -i temp -o docs/content/api/js-common-rxjs && rimraf temp"
     },
     "engines": {
         "node": "^12.20.0 || ^14.15.0 || >=16.10.0"
@@ -55,13 +58,16 @@
     },
     "homepage": "https://github.com/ressurectit/js-common",
     "peerDependencies": {
-        "extend": "^3.0.2"
+        "rxjs": ">=6.6.7",
+        "extend": "^3.0.2",
+        "tslib": "^2.3.1"
     },
     "devDependencies": {
+        "rxjs": "^6.6.7",
         "@types/extend": "^3.0.1",
         "@microsoft/api-extractor": "7.18.19",
         "@microsoft/api-documenter": "7.13.67",
-        "tslib": "2.3.1",
+        "tslib": "^2.3.1",
         "eslint": "7.32.0",
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",
@@ -69,15 +75,15 @@
         "replace-in-file": "6.3.2",
         "path-exists-cli": "2.0.0",
         "rename-cli": "6.2.1",
-        "typescript": "4.4.4",
+        "typescript": "4.5.4",
         "npm-git-version": "2.0.0"
     },
-    "main": "./dist/module/indexNode.cjs",
-    "module": "./dist/module/indexNode.cjs",
-    "browser": "./dist/es2015/index.js",
-    "esm2015": "./dist/es2015/index.js",
-    "es2020": "./dist/es2020/index.js",
-    "esm2020": "./dist/es2020/index.js",
+    "main": "./module/src/indexNode.cjs",
+    "module": "./module/src/indexNode.cjs",
+    "browser": "./es2015/src/index.js",
+    "esm2015": "./es2015/src/index.js",
+    "es2020": "./es2020/src/index.js",
+    "esm2020": "./es2020/src/index.js",
     "typings": "./src/index.d.ts",
     "exports": {
         "./package.json": {
@@ -85,16 +91,29 @@
         },
         ".": {
             "types": "./src/index.d.ts",
-            "es5": "./dist/es5/index.js",
-            "es2015": "./dist/es2015/index.js",
-            "es2020": "./dist/es2020/index.js",
-            "esm2020": "./dist/es2020/index.js",
+            "esm2020": "./es2020/src/index.js",
+            "es2020": "./es2020/src/index.js",
+            "es2015": "./es2015/src/index.js",
+            "es5": "./es5/src/index.js",
             "node": {
-                "require": "./dist/module/indexNode.cjs",
-                "import": "./dist/es/indexNode.mjs"
+                "require": "./module/src/indexNode.cjs",
+                "import": "./es/src/indexNode.mjs"
             },
-            "browser": "./dist/es2015/index.js",
-            "default": "./dist/es2020/index.js"
+            "browser": "./es2015/src/index.js",
+            "default": "./es2020/src/index.js"
+        },
+        "./rxjs": {
+            "types": "./rxjs/src/index.d.ts",
+            "esm2020": "./es2020/rxjs/src/index.js",
+            "es2020": "./es2020/rxjs/src/index.js",
+            "es2015": "./es2015/rxjs/src/index.js",
+            "es5": "./es5/rxjs/src/index.js",
+            "node": {
+                "require": "./module/rxjs/src/index.cjs",
+                "import": "./es/rxjs/src/index.mjs"
+            },
+            "browser": "./es2015/rxjs/src/index.js",
+            "default": "./es2020/rxjs/src/index.js"
         }
     }
 }

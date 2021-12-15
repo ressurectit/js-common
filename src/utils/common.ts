@@ -361,3 +361,25 @@ export function asDictionary<TType>(instance: TType): AsDictionary<TType>
 {
     return instance as AsDictionary<TType>;
 }
+
+/**
+ * Maps all iterable property values of object to "this" bounded
+ * @param this - Object which will be filled with new values
+ * @param value - Object holding values that will be used for filling
+ * @param all - Indication whether map only existing properties or everything
+ */
+export function mapValuesToThis(this: Dictionary<any>, value: Dictionary<any>, all: boolean = false): void
+{
+    if(!value)
+    {
+        return;
+    }
+
+    Object.keys(value).forEach(prop =>
+    {
+        if(value[prop] !== undefined && (all || (prop in this)))
+        {
+            this[prop] = value[prop];
+        }
+    });
+}

@@ -6,11 +6,7 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "inlineSources": true,
-        "declaration": true,
-        "declarationMap": true,
-        "declarationDir": "src",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
+        "declaration": false,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "noImplicitOverride": true,
@@ -22,7 +18,7 @@
         "esModuleInterop": true,
         "importHelpers": true,
         "newLine": "lf",
-        "outDir": "dist/es5",
+        "outDir": "es5",
         "lib": 
         [
             "es2020", 

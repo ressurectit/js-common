@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 2.1.0 (2021-12-15)
+
+### Features
+
+- added `mapValuesToThis` function that maps all iterable property values of object to "this" bounded
+- added `Pageable` interface for paging
+- added `PagedData` interface that is representation of data that are paged
+- added `CssGlobal` type that represents css global values, usable for any css property
+- added `CssOverflow` type that represents css overflow values
+- added `CssPosition` type that represents css position values
+- added `CssDisplay` type that represents css display values
+- added `PromiseOr` type that represents pure value or value obtained by promise
+- added `resolvePromiseOr` function that resolves `PromiseOr` value
+- added *subpackage* `@jscrpt/common/rxjs`
+- *subpackage* `@jscrpt/common/rxjs`
+    - added `PromiseObservableOr` type that represents pure value or value obtained by promise or value obtained by Observable
+    - added `resolvePromiseObservableOr` function that resolves `PromiseObservableOr` value, if value is Observable then can be completed without value and `undefined` is resolved
+
 ## Version 2.0.3 (2021-11-15)
 
 ### Bug Fixes
