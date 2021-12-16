@@ -4,7 +4,7 @@ import {isFunction} from '../utils/lang';
 /**
  * Binds function to this, object instance where is defined, it is importat to place it in correct order with other decorators, usually should be first
  */
-export function BindThis(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor): TypedPropertyDescriptor<Func<any>>
+export function BindThis(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor): TypedPropertyDescriptor<Func<any, any>>
 {
     const originalValue: Func = descriptor.value ?? descriptor.get?.();
 

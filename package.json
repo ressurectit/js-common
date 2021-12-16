@@ -65,9 +65,9 @@
     "devDependencies": {
         "rxjs": "^6.6.7",
         "@types/extend": "^3.0.1",
-        "@microsoft/api-extractor": "7.18.19",
-        "@microsoft/api-documenter": "7.13.67",
-        "tslib": "^2.3.1",
+        "@microsoft/api-extractor": "7.19.2",
+        "@microsoft/api-documenter": "7.13.77",
+        "tslib": "2.3.1",
         "eslint": "7.32.0",
         "@typescript-eslint/eslint-plugin": "4.33.0",
         "@typescript-eslint/parser": "4.33.0",

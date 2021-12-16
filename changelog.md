@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 2.2.0 (2021-12-16)
+
+### Bug Fixes
+
+- fixed `BindThis` now accepts any type of fuction, not only without parameters
+- fixed `Action` now allows correctly to specify type of arguments
+- fixed `Func` now allows correctly to specify type of arguments
+
+### Features
+
+- added `AsAnyDictionary` represents type that extracts class as type Record with property keys as index and any property values
+- added `FuncSignature` type that extracts function signature from function type
+
 ## Version 2.1.0 (2021-12-15)
 
 ### Features
