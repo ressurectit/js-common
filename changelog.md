@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.3.0 (2022-02-22)
+
+### Features
+
+- added new `simpleNotification` function, that briefly shows simple notification with simple text
+
 ## Version 2.2.0 (2021-12-16)
 
 ### Bug Fixes
