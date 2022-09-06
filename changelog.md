@@ -11,6 +11,17 @@
 
 ### Features
 
+- new `Func1` type, that is function definition with one argument and return type
+- new `Func2` type, that is function definition with two arguments and return type
+- new `Func3` type, that is function definition with three arguments and return type
+- new `Func4` type, that is function definition with four arguments and return type
+- new `Func5` type, that is function definition with five arguments and return type
+- new `Action1` type, that is function definition with one argument and no return type
+- new `Action2` type, that is function definition with two arguments and no return type
+- new `Action3` type, that is function definition with three arguments and no return type
+- new `Action4` type, that is function definition with four arguments and no return type
+- new `Action5` type, that is function definition with five arguments and no return type
+
 ### BREAKING CHANGES
 
 - dropped support of `Node.js` version `12`
