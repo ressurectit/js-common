@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 3.0.0 (2022-09-06)
+
+### Bug Fixes
+
+- fixed `CallOnce` decorator
+    - now correctly sets timeout to attached method and object
+- fixed `DebounceCall` decorator
+    - now correctly sets timeout to attached method and object
+
+### Features
+
+### BREAKING CHANGES
+
+- dropped support of `Node.js` version `12`
+- minimal supported version of `rxjs` is now `7.5.0`
+    - removed deprecated `toPromise` and replaced with `lastValueFrom`
+- minimal supported version of `tslib` is now `2.4.0`
+- removed redundant `resolvePromiseOr`, simple `await` is enough for `PromiseOr` value
+- changed second parameter of `mapValuesToThis` to *nullable*, only change in typings
+
 ## Version 2.3.0 (2022-02-22)
 
 ### Features

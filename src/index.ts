@@ -23,7 +23,6 @@ export * from './types/functions';
 export * from './types/pageable';
 export * from './types/pagedData';
 export * from './types/valueNamePair';
-export * from './utils/async';
 export * from './utils/common';
 export * from './utils/lang';
 export * from './utils/nameof';

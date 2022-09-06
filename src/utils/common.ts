@@ -368,7 +368,7 @@ export function asDictionary<TType>(instance: TType): AsDictionary<TType>
  * @param value - Object holding values that will be used for filling
  * @param all - Indication whether map only existing properties or everything
  */
-export function mapValuesToThis(this: Dictionary<any>, value: Dictionary<any>, all: boolean = false): void
+export function mapValuesToThis(this: Dictionary<any>, value: Dictionary<any>|undefined|null, all: boolean = false): void
 {
     if(!value)
     {

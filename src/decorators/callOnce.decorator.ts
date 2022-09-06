@@ -9,7 +9,7 @@ export function CallOnce(time: number): MethodDecorator
 {
     return function(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor)
     {
-        let timeout: number|null;
+        const timeout = Symbol('ɵTimeout');
         const originalValue: Func = descriptor.value ?? descriptor.get?.();
 
         if(!isFunction(originalValue))
@@ -17,23 +17,34 @@ export function CallOnce(time: number): MethodDecorator
             throw new Error(`Unable to apply @CallOnce() decorator to '${propertyKey.toString()}', it is not a method.`);
         }
 
-        descriptor.value = function(...args: unknown[]): void
+        descriptor.value = function(this: {[key: symbol]: number|null}, ...args: unknown[]): void
         {
-            if(isPresent(timeout))
+            if(isPresent(this[timeout]))
             {
                 return;
+            }
+            
+            //timeout variable does not exists
+            if(!(timeout in this))
+            {
+                Reflect.defineProperty(this,
+                                       timeout,
+                                       {
+                                           writable: true,
+                                           value: null,
+                                       });
             }
 
             originalValue.apply(this, args);
 
-            timeout = setTimeout(() =>
+            this[timeout] = setTimeout(() =>
             {
-                if(isPresent(timeout))
+                if(isPresent(this[timeout]))
                 {
-                    clearTimeout(timeout);
+                    clearTimeout(this[timeout]);
                 }
                 
-                timeout = null;
+                this[timeout] = null;
             }, time) as any;
         };
 

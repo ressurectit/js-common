@@ -9,7 +9,7 @@ export function DebounceCall(delay: number): MethodDecorator
 {
     return function(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor)
     {
-        let timeout: number;
+        const timeout = Symbol('ɵTimeout');
         const originalValue: Func = descriptor.value ?? descriptor.get?.();
 
         if(!isFunction(originalValue))
@@ -17,16 +17,28 @@ export function DebounceCall(delay: number): MethodDecorator
             throw new Error(`Unable to apply @DebounceCall() decorator to '${propertyKey.toString()}', it is not a method.`);
         }
 
-        descriptor.value = function(...args: unknown[]): void
+        descriptor.value = function(this: {[key: symbol]: number|null}, ...args: unknown[]): void
         {
-            if(isPresent(timeout))
+            if(isPresent(this[timeout]))
             {
-                clearTimeout(timeout);
+                clearTimeout(this[timeout]);
             }
 
-            timeout = setTimeout(() =>
+            //timeout variable does not exists
+            if(!(timeout in this))
+            {
+                Reflect.defineProperty(this,
+                                       timeout,
+                                       {
+                                           writable: true,
+                                           value: null,
+                                       });
+            }
+
+            this[timeout] = setTimeout(() =>
             {
                 originalValue.apply(this, args);
+                this[timeout] = null;
             }, delay) as any;
         };
 

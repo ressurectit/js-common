@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs';
+import {EmptyError, lastValueFrom, Observable} from 'rxjs';
 import {PromiseObservableOr} from '../types/async';
 
 /**
@@ -11,15 +11,25 @@ export function resolvePromiseObservableOr<TResult>(value: PromiseObservableOr<T
     {
         if(value instanceof Observable)
         {
-            value = value
-                .toPromise();
+            value = lastValueFrom(value);
         }
 
         if(value instanceof Promise)
         {
             value
                 .then(resolve)
-                .catch(error => reject(error));
+                .catch(error =>
+                {
+                    //handles observable that completes without value
+                    if(error instanceof EmptyError)
+                    {
+                        resolve(undefined);
+
+                        return;
+                    }
+
+                    reject(error);
+                });
 
             return;
         }
