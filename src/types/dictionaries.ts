@@ -1,12 +1,12 @@
 /**
  * Represents type that extracts class as type Record with property keys as index and unknown property values
  */
-export type AsDictionary<TType extends Object> = TType extends {[P in keyof TType]: unknown} ? Record<keyof TType, unknown> : unknown;
+export type AsDictionary<TType extends any> = TType extends {[P in keyof TType]: unknown} ? Record<keyof TType, unknown> : unknown;
 
 /**
  * Represents type that extracts class as type Record with property keys as index and any property values
  */
-export type AsAnyDictionary<TType extends Object> = TType extends {[P in keyof TType]: any} ? Record<keyof TType, any> : any;
+export type AsAnyDictionary<TType extends any> = TType extends {[P in keyof TType]: any} ? Record<keyof TType, any> : any;
 
 /**
  * Represents Record type where, key is string and value is defined by typeparam
