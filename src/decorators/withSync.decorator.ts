@@ -29,9 +29,10 @@ export function WithSync(): MethodDecorator
                                        });
             }
 
-            await this[sync];
+            const syncPromise = this[sync];
             let syncResolve: NoopAction|undefined;
             this[sync] = new Promise(resolve => syncResolve = resolve);
+            await syncPromise;
 
             const result = await originalValue.apply<any, any[], TResult>(this, args);
 
