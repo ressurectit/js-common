@@ -48,9 +48,6 @@ export function DebounceCall(delay: number): MethodDecorator
             if(isPresent(this[timeout]))
             {
                 clearTimeout(this[timeout]);
-
-                this[resolve](undefined);
-                this[result] = new Promise<TResult|undefined>(resolveFn => this[resolve] = resolveFn);
             }
 
             //timeout variable does not exists

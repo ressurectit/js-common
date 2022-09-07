@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 3.0.0 (2022-09-06)
+## Version 3.0.0 (2022-09-07)
 
 ### Bug Fixes
 
@@ -25,7 +25,7 @@
     - **methods**
         - `invalidateVisuals` - explicitly runs invalidation of content (change detection), which redraws contents
 - new `WithSync` decorator, that adds special functionality to async method call, that allows only to call this method only when previous execution was finished
-- updated `DebounceCall`, now asynchronously returns values, if call is canceled `undefined` is returned
+- updated `DebounceCall`, now asynchronously returns values, all calls returns value from last call
 
 ### BREAKING CHANGES
 
