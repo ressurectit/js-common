@@ -1,4 +1,5 @@
-import {Func} from '../types/functions';
+import {PromiseOr} from '../types/async';
+import {Action1, Func} from '../types/functions';
 import {isFunction, isPresent} from '../utils/lang';
 
 /**
@@ -10,18 +11,46 @@ export function DebounceCall(delay: number): MethodDecorator
     return function(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor)
     {
         const timeout = Symbol('ɵTimeout');
-        const originalValue: Func = descriptor.value ?? descriptor.get?.();
+        const resolve = Symbol('ɵResolve');
+        const result = Symbol('ɵResult');
+        const originalValue: Func<any> = descriptor.value ?? descriptor.get?.();
 
         if(!isFunction(originalValue))
         {
             throw new Error(`Unable to apply @DebounceCall() decorator to '${propertyKey.toString()}', it is not a method.`);
         }
 
-        descriptor.value = function(this: {[key: symbol]: number|null}, ...args: unknown[]): void
+        descriptor.value = function<TResult>(this: {[timeout]: number|null, [resolve]: Action1<TResult|undefined>, [result]: Promise<TResult|undefined>}, ...args: unknown[]): Promise<TResult|undefined>
         {
+            //result variable does not exists
+            if(!(resolve in this) && !(result in this))
+            {
+                let resolveFn: Action1<TResult|undefined>|undefined;
+                const promise = new Promise<TResult|undefined>(resolve => resolveFn = resolve);
+
+                Reflect.defineProperty(this,
+                                       resolve,
+                                       {
+                                           writable: true,
+                                           value: resolveFn,
+                                       });
+
+                Reflect.defineProperty(this,
+                                       result,
+                                       {
+                                           writable: true,
+                                           value: promise,
+                                       });
+            }
+
+            
+
             if(isPresent(this[timeout]))
             {
                 clearTimeout(this[timeout]);
+
+                this[resolve](undefined);
+                this[result] = new Promise<TResult|undefined>(resolveFn => this[resolve] = resolveFn);
             }
 
             //timeout variable does not exists
@@ -35,11 +64,14 @@ export function DebounceCall(delay: number): MethodDecorator
                                        });
             }
 
-            this[timeout] = setTimeout(() =>
+            this[timeout] = setTimeout(async () =>
             {
-                originalValue.apply(this, args);
+                this[resolve](await originalValue.apply<any, any, PromiseOr<TResult>>(this, args));
+                this[result] = new Promise<TResult|undefined>(resolveFn => this[resolve] = resolveFn);
                 this[timeout] = null;
             }, delay) as any;
+
+            return this[result];
         };
 
         return descriptor;

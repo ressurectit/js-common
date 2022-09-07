@@ -21,6 +21,11 @@
 - new `Action3` type, that is function definition with three arguments and no return type
 - new `Action4` type, that is function definition with four arguments and no return type
 - new `Action5` type, that is function definition with five arguments and no return type
+- new `Invalidatable` interface, that represents type that can be visualy invalidated
+    - **methods**
+        - `invalidateVisuals` - explicitly runs invalidation of content (change detection), which redraws contents
+- new `WithSync` decorator, that adds special functionality to async method call, that allows only to call this method only when previous execution was finished
+- updated `DebounceCall`, now asynchronously returns values, if call is canceled `undefined` is returned
 
 ### BREAKING CHANGES
 
