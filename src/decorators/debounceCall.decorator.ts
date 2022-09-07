@@ -66,7 +66,7 @@ export function DebounceCall(delay: number): MethodDecorator
 
             this[timeout] = setTimeout(async () =>
             {
-                this[resolve](await originalValue.apply<any, any, PromiseOr<TResult>>(this, args));
+                this[resolve](await originalValue.apply<any, any[], PromiseOr<TResult>>(this, args));
                 this[result] = new Promise<TResult|undefined>(resolveFn => this[resolve] = resolveFn);
                 this[timeout] = null;
             }, delay) as any;

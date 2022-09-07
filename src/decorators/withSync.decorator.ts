@@ -9,14 +9,14 @@ export function WithSync(): MethodDecorator
     return function(_target: Object, propertyKey: string|symbol, descriptor: PropertyDescriptor)
     {
         const sync = Symbol('ɵSync');
-        const originalValue: Func = descriptor.value ?? descriptor.get?.();
+        const originalValue: Func<any> = descriptor.value ?? descriptor.get?.();
 
         if(!isFunction(originalValue))
         {
             throw new Error(`Unable to apply @WithSync() decorator to '${propertyKey.toString()}', it is not a method.`);
         }
 
-        descriptor.value = async function(this: {[key: symbol]: Promise<void>}, ...args: unknown[]): Promise<void>
+        descriptor.value = async function<TResult>(this: {[key: symbol]: Promise<void>}, ...args: unknown[]): Promise<TResult>
         {
             //sync variable does not exists
             if(!(sync in this))
@@ -33,9 +33,11 @@ export function WithSync(): MethodDecorator
             let syncResolve: NoopAction|undefined;
             this[sync] = new Promise(resolve => syncResolve = resolve);
 
-            await originalValue.apply(this, args);
+            const result = await originalValue.apply<any, any[], TResult>(this, args);
 
             syncResolve?.();
+
+            return result;
         };
 
         return descriptor;
