@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 3.1.0 (2022-10-06)
+
+### Features
+
+- new `Func1Rest` type, that is function definition with one mandatory argument, rest argument and return type
+- new `Func2Rest` type, that is function definition with two mandatory arguments, rest argument and return type
+- new `Func3Rest` type, that is function definition with three mandatory arguments, rest argument and return type
+- new `Func4Rest` type, that is function definition with four mandatory arguments, rest argument and return type
+- new `Func5Rest` type, that is function definition with five mandatory arguments, rest argument and return type
+- new `Action1Rest` type, that is function definition with one mandatory argument, rest argument and no return type
+- new `Action2Rest` type, that is function definition with two mandatory arguments, rest argument and no return type
+- new `Action3Rest` type, that is function definition with three mandatory arguments, rest argument and no return type
+- new `Action4Rest` type, that is function definition with four mandatory arguments, rest argument and no return type
+- new `Action5Rest` type, that is function definition with five mandatory arguments, rest argument and no return type
+
 ## Version 3.0.0 (2022-09-07)
 
 ### Bug Fixes
