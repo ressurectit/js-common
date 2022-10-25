@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 3.2.0 (2022-10-25)
+
+### Features
+
+- new `Property` decorator, which allows to define property on object with specific options and default value
+- new `Mixin` decorator, which uses specified class as class mixin, takes its methods and properties and merge them into target class
+- new `stringToColour` function, that transforms any string to colour code
+- new `MixinType` interface, that defines type that can be used as mixin
+
 ## Version 3.1.0 (2022-10-06)
 
 ### Features
