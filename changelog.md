@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 3.3.0 (2022-10-28)
+
+### Features
+
+- *subpackage* `@jscrpt/common/rxjs`
+    - new `lastValueFrom` function, which calls rxjs `lastValueFrom` with empty value `undefined` or provided emptyValue
+
 ## Version 3.2.0 (2022-10-25)
 
 ### Features
