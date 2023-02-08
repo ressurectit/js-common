@@ -452,3 +452,48 @@ export function stringToColour(str: string): string
 
     return colour;
 }
+
+/**
+ * Renders element into body directly or into container element
+ * @param document - Html document instance
+ * @param element - Html element that will be rendered
+ * @param containerElementSelector - Css selector for container element, if not specified renders into body, css selector must contain element name and optionally css classes
+ */
+export function renderToBody(document: Document, element: HTMLElement, containerElementSelector?: string|null): void
+{
+    //render to specified target element
+    if(containerElementSelector)
+    {
+        let containerElement = document.querySelector(`body ${containerElementSelector}`);
+
+        //render to specified target element
+        if(!containerElement)
+        {
+            const [name, ...css] = containerElementSelector.split('.');
+
+            containerElement = document.createElement(name);
+
+            if(!name)
+            {
+                throw new Error('renderToBody: missing name of element');
+            }
+
+            if(css?.length)
+            {
+                for(const cssClass of css)
+                {
+                    containerElement.classList.add(cssClass);
+                }
+            }
+
+            document.body.appendChild(containerElement);
+        }
+
+        containerElement.appendChild(element);
+    }
+    //render directly to body
+    else
+    {
+        document.body.appendChild(element);
+    }
+}

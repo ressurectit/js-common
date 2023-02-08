@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 3.4.0 (2023-02-08)
+
+### Features
+
+- new `renderToBody` function, that renders element into body directly or into container element
+
 ## Version 3.3.0 (2022-10-28)
 
 ### Features
