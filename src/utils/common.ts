@@ -1,6 +1,6 @@
 import extendLib from 'extend';
 
-import {isPresent} from './lang';
+import {isBlank, isJsObject, isPresent} from './lang';
 import {AsDictionary, Dictionary, StringDictionary} from '../types/dictionaries';
 import {Enum} from '../types/enums';
 import {ValueNamePair} from '../types/valueNamePair';
@@ -496,4 +496,90 @@ export function renderToBody(document: Document, element: HTMLElement, container
     {
         document.body.appendChild(element);
     }
+}
+
+/**
+ * Formats input string using no parameters, returns original input
+ * @param input - Input that will be formatted
+ */
+export function formatString(input: string|undefined|null): string
+/**
+ * Formats input string using object holding formatting parameters
+ * @param input - Input that will be formatted
+ * @param parameter - Parameter as object which properties will be used for formatting
+ * 
+ * ```
+ * formatString('test {val}, {@test}, {@(2)test}', {val: 3, test: {bool: true, num: 10}});
+ * ```
+ * 
+ * displays `{val}` as direct stringified value of '`val`' property  
+ * displays `{@test}` as JSON strinfigied value of '`test`' property  
+ * displays `{@(2)test}` as JSON stringified value of '`test`' property with 2 spaces indentation (other supported spaces are 4 and 8)
+ */
+export function formatString(input: string|undefined|null, parameter: Record<string, unknown>): string
+/**
+ * Formats input string using array holding formatting parameters
+ * @param input - Input that will be formatted
+ * @param parameter - Parameter as array which items will be used for formatting
+ * 
+ * ```
+ * formatString('test {0}, {@1}, {@(2)1}', [3, {bool: true, num: 10}])
+ * ```
+ * 
+ * displays `{0}` as direct stringified value of '`0`' index item  
+ * displays `{@1}` as JSON strinfigied value of '`0`' index item  
+ * displays `{@(2)1}` as JSON stringified value of '`0`' index item with 2 spaces indentation (other supported spaces are 4 and 8)
+ */
+export function formatString(input: string|undefined|null, ...parameters: unknown[]): string
+export function formatString(input: string|undefined|null, ...parameters: unknown[]|[Record<string, unknown>]): string
+{
+    if(isBlank(input))
+    {
+        return '';
+    }
+
+    //formatting using object
+    if(parameters.length == 1 && isJsObject(parameters[0]))
+    {
+        const parameter = parameters[0] as Record<string, unknown>;
+
+        for(const prop in parameter)
+        {
+            input = input?.replace(new RegExp('\\{' + prop + '\\}', 'g'), `${parameter[prop]}`);
+            input = input?.replace(new RegExp('\\{@(?:\\(([2|4|8])\\))?' + prop + '\\}', 'g'), (_, ...args) =>
+            {
+                if(isBlank(args[0]))
+                {
+                    return JSON.stringify(parameter[prop]);
+                }
+                    
+                return JSON.stringify(parameter[prop], null, +args[0]);
+            });
+        }
+    }
+    //formatting using array of values
+    else
+    {
+        //no formatting parameters
+        if(!parameters.length)
+        {
+            return input;
+        }
+
+        for(let x = 0; x < parameters.length; x++)
+        {
+            input = input?.replace(new RegExp('\\{' + x + '\\}', 'g'), `${parameters[x]}`);
+            input = input?.replace(new RegExp('\\{@(?:\\(([2|4|8])\\))?' + x + '\\}', 'g'), (_, ...args) =>
+            {
+                if(isBlank(args[0]))
+                {
+                    return JSON.stringify(parameters[x]);
+                }
+                    
+                return JSON.stringify(parameters[x], null, +args[0]);
+            });
+        }
+    }
+
+    return input;
 }

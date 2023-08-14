@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 3.5.0 (2023-08-14)
+
+### Features
+
+- new `formatString` function, that formats input string using formatting parameters (Array or Object)
+
 ## Version 3.4.0 (2023-02-08)
 
 ### Features
