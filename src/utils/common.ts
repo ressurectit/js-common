@@ -235,8 +235,8 @@ export function getEnumValues<TEnum extends Enum>(enumType: TEnum): ValueNamePai
  * @param object - Object which property value will be obtained
  * @param expression - Expression for obtaining value
  */
-export function getValue<TValue = unknown>(object: Dictionary<any>, expression: string): TValue
-export function getValue(object: Dictionary<any>, expression: string): unknown
+export function getValue<TValue = unknown>(object: Record<string, unknown>, expression: string): TValue
+export function getValue(object: Record<string, any>, expression: string): unknown
 {
     return expression.split('.').reduce((o, i) =>
     {
@@ -502,19 +502,22 @@ export function renderToBody(document: Document, element: HTMLElement, container
  * Formats input string using no parameters, returns original input
  * @param input - Input that will be formatted
  */
-export function formatString(input: string|undefined|null): string
+export function formatString(input: string|undefined|null, parameter?: null): string
 /**
  * Formats input string using object holding formatting parameters
  * @param input - Input that will be formatted
  * @param parameter - Parameter as object which properties will be used for formatting
  * 
  * ```
- * formatString('test {val}, {@test}, {@(2)test}', {val: 3, test: {bool: true, num: 10}});
+ * formatString('test {{val}}, {{test}} {{test.num}} {{@test}}, {{@(2)test}} {{@test.bool}}', {val: 3, test: {bool: true, num: 10}});
  * ```
  * 
- * displays `{val}` as direct stringified value of '`val`' property  
- * displays `{@test}` as JSON strinfigied value of '`test`' property  
- * displays `{@(2)test}` as JSON stringified value of '`test`' property with 2 spaces indentation (other supported spaces are 4 and 8)
+ * displays `{{val}}` as direct stringified value of '`val`' property  
+ * displays `{{test}}` as direct strinfigied value of '`test`' property  
+ * displays `{{test.num}}` as direct strinfigied value of '`test`' property and its subproperty '`num`'
+ * displays `{{@test}}` as JSON strinfigied value of '`test`' property  
+ * displays `{{@(2)test}}` as JSON stringified value of '`test`' property with 2 spaces indentation (other supported spaces are 4 and 8)
+ * displays `{{@test.bool}}` as JSON stringified value of '`test`' property and its subproperty '`bool`'
  */
 export function formatString(input: string|undefined|null, parameter: Record<string, unknown>): string
 /**
@@ -523,12 +526,12 @@ export function formatString(input: string|undefined|null, parameter: Record<str
  * @param parameter - Parameter as array which items will be used for formatting
  * 
  * ```
- * formatString('test {0}, {@1}, {@(2)1}', [3, {bool: true, num: 10}])
+ * formatString('test {{0}}, {{@1}}, {{@(2)1}}', [3, {bool: true, num: 10}])
  * ```
  * 
- * displays `{0}` as direct stringified value of '`0`' index item  
- * displays `{@1}` as JSON strinfigied value of '`0`' index item  
- * displays `{@(2)1}` as JSON stringified value of '`0`' index item with 2 spaces indentation (other supported spaces are 4 and 8)
+ * displays `{{0}}` as direct stringified value of '`0`' index item  
+ * displays `{{@1}}` as JSON strinfigied value of '`0`' index item  
+ * displays `{{@(2)1}}` as JSON stringified value of '`0`' index item with 2 spaces indentation (other supported spaces are 4 and 8)
  */
 export function formatString(input: string|undefined|null, ...parameters: unknown[]): string
 export function formatString(input: string|undefined|null, ...parameters: unknown[]|[Record<string, unknown>]): string
@@ -545,15 +548,23 @@ export function formatString(input: string|undefined|null, ...parameters: unknow
 
         for(const prop in parameter)
         {
-            input = input?.replace(new RegExp('\\{' + prop + '\\}', 'g'), `${parameter[prop]}`);
-            input = input?.replace(new RegExp('\\{@(?:\\(([2|4|8])\\))?' + prop + '\\}', 'g'), (_, ...args) =>
+            input = input?.replace(new RegExp('\\{\\{' + prop + '((?:\\.[A-Za-z0-9$_]+)*)\\}\\}', 'g'), (_, ...args) =>
             {
+                const expression = !args[0] ? prop : prop + args[0];
+
+                return getValue<string>(parameter, expression);
+            });
+
+            input = input?.replace(new RegExp('\\{\\{@(?:\\(([2|4|8])\\))?' + prop + '((?:\\.[A-Za-z0-9$_]+)*)\\}\\}', 'g'), (_, ...args) =>
+            {
+                const expression = !args[1] ? prop : prop + args[1];
+
                 if(isBlank(args[0]))
                 {
-                    return JSON.stringify(parameter[prop]);
+                    return JSON.stringify(getValue(parameter, expression));
                 }
                     
-                return JSON.stringify(parameter[prop], null, +args[0]);
+                return JSON.stringify(getValue(parameter, expression), null, +args[0]);
             });
         }
     }

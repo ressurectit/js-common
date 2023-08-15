@@ -1,5 +1,23 @@
 # Changelog
 
+## Version 4.0.0 (2023-08-15)
+
+### Features
+
+- new `CombineStrings` type, that combines unions of strings
+- new `PropertyExpression` type, that represents recursively extracts property expressions for type and specified properties    
+- new `TypePropertyExpressions` type, that extracts property expressions for type (object)
+- updated `formatString` function
+    - now supports also using of nested properties expressions in template string ``{{obj.property}}``
+
+### BREAKING CHANGES
+
+- minimal supported version of `tslib` is now `2.6.1`
+- updated `getValue` function
+    - first parameter type changed from `Dictionary<any>` to `Record<string, unknown>`
+- updated `formatString` function
+    - parameter template string now requires double brackets to work ``{{value}}`` instead of `{value}` as it was previous
+
 ## Version 3.5.0 (2023-08-14)
 
 ### Features
