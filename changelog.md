@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 4.1.0 (2023-10-06)
+
+### Features
+
+- new `RecursivePartial` type, that is utility type that makes partial all nested properties
+- new `Func0` type, that is function definition with zero arguments and return type
+- new `Func0Rest` type, that is function definition with zero mandatory arguments, rest argument and return type
+
 ## Version 4.0.0 (2023-08-15)
 
 ### Features

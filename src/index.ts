@@ -26,6 +26,7 @@ export * from './types/mixinType';
 export * from './types/pageable';
 export * from './types/pagedData';
 export * from './types/propertyExpressions';
+export * from './types/recursivePartial';
 export * from './types/valueNamePair';
 export * from './utils/common';
 export * from './utils/lang';

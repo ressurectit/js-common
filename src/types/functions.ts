@@ -107,6 +107,19 @@ export type Action5Rest<TArg1 = unknown, TArg2 = unknown, TArg3 = unknown, TArg4
 export type Func<TResult = unknown, TArgs extends Array<unknown> = unknown[]> = (...args: TArgs) => TResult;
 
 /**
+ * Function definition with zero arguments and return type
+ * @typeParam TResult - Return type of function
+ */
+export type Func0<TResult = unknown> = () => TResult;
+
+/**
+ * Function definition with zero mandatory arguments, rest argument and return type
+ * @typeParam TResult - Return type of function
+ * @typeParam TRest - Type of rest parameter
+ */
+export type Func0Rest<TResult = unknown, TRest extends Array<unknown> = unknown[]> = (...rest: TRest) => TResult;
+
+/**
  * Function definition with one argument and return type
  * @typeParam TResult - Return type of function
  * @typeParam TArg1 - Type of first parameter
