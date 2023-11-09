@@ -2,7 +2,7 @@
     "compilerOptions":
     {
         "target": "es5",
-        "module": "es2020",
+        "module": "es2022",
         "moduleResolution": "node",
         "sourceMap": true,
         "inlineSources": true,
@@ -19,9 +19,13 @@
         "importHelpers": true,
         "newLine": "lf",
         "outDir": "es5",
+        "types": 
+        [
+            "node"
+        ],
         "lib": 
         [
-            "es2020", 
+            "es2022", 
             "dom"
         ]
     },

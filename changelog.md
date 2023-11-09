@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 5.0.0 (2023-11-09)
+
+### Features
+
+- new compilation output format `es2022`
+- new `isCheckbox` function, that tests whether is element input type checkbox
+- new `isRadio` function, that tests whether is element input type radio
+- new `isInput` function, that tests whether is element input
+- new `isSelect` function, that tests whether is element select
+- new `isButton` function, that tests whether is element button
+- new `isAnchor` function, that tests whether is element anchor
+
+
+### BREAKING CHANGES
+
+- minimal supported version of `tslib` is now `2.6.2`
+- minimal supported version of `node.js` is now `18`
+- updated `Paginator` class
+    - `GetFirstPage` renamed to `getFirstPage`
+
 ## Version 4.1.0 (2023-10-06)
 
 ### Features

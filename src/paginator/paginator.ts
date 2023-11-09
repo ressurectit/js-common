@@ -52,7 +52,7 @@ export class Paginator
     /// Returns first page number.
     /// </summary>
     /// <returns>Number of first page</returns>
-    public GetFirstPage(): number
+    public getFirstPage(): number
     {
         return this._base;
     }
@@ -273,7 +273,7 @@ export class Paginator
         const pageCount = this.getPageCount();
         numberOfPages = Math.min(numberOfPages, pageCount - 1);
         const step = pageCount / numberOfPages;
-        let page = this.GetFirstPage();
+        let page = this.getFirstPage();
         let x;
 
         const result: number[] = [];

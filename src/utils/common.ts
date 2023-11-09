@@ -437,11 +437,11 @@ export function stringToColour(str: string): string
 {
     let hash = 0;
 
-    for (let i = 0; i < str.length; i++) 
+    for (let i = 0; i < str.length; i++)
     {
         hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
-    
+
     let colour = '#';
 
     for (let i = 0; i < 3; i++)
@@ -507,15 +507,15 @@ export function formatString(input: string|undefined|null, parameter?: null): st
  * Formats input string using object holding formatting parameters
  * @param input - Input that will be formatted
  * @param parameter - Parameter as object which properties will be used for formatting
- * 
+ *
  * ```
  * formatString('test {{val}}, {{test}} {{test.num}} {{@test}}, {{@(2)test}} {{@test.bool}}', {val: 3, test: {bool: true, num: 10}});
  * ```
- * 
- * displays `{{val}}` as direct stringified value of '`val`' property  
- * displays `{{test}}` as direct strinfigied value of '`test`' property  
+ *
+ * displays `{{val}}` as direct stringified value of '`val`' property
+ * displays `{{test}}` as direct strinfigied value of '`test`' property
  * displays `{{test.num}}` as direct strinfigied value of '`test`' property and its subproperty '`num`'
- * displays `{{@test}}` as JSON strinfigied value of '`test`' property  
+ * displays `{{@test}}` as JSON strinfigied value of '`test`' property
  * displays `{{@(2)test}}` as JSON stringified value of '`test`' property with 2 spaces indentation (other supported spaces are 4 and 8)
  * displays `{{@test.bool}}` as JSON stringified value of '`test`' property and its subproperty '`bool`'
  */
@@ -524,13 +524,13 @@ export function formatString(input: string|undefined|null, parameter: Record<str
  * Formats input string using array holding formatting parameters
  * @param input - Input that will be formatted
  * @param parameter - Parameter as array which items will be used for formatting
- * 
+ *
  * ```
  * formatString('test {{0}}, {{@1}}, {{@(2)1}}', [3, {bool: true, num: 10}])
  * ```
- * 
- * displays `{{0}}` as direct stringified value of '`0`' index item  
- * displays `{{@1}}` as JSON strinfigied value of '`0`' index item  
+ *
+ * displays `{{0}}` as direct stringified value of '`0`' index item
+ * displays `{{@1}}` as JSON strinfigied value of '`0`' index item
  * displays `{{@(2)1}}` as JSON stringified value of '`0`' index item with 2 spaces indentation (other supported spaces are 4 and 8)
  */
 export function formatString(input: string|undefined|null, ...parameters: unknown[]): string
@@ -563,7 +563,7 @@ export function formatString(input: string|undefined|null, ...parameters: unknow
                 {
                     return JSON.stringify(getValue(parameter, expression));
                 }
-                    
+
                 return JSON.stringify(getValue(parameter, expression), null, +args[0]);
             });
         }
@@ -586,11 +586,65 @@ export function formatString(input: string|undefined|null, ...parameters: unknow
                 {
                     return JSON.stringify(parameters[x]);
                 }
-                    
+
                 return JSON.stringify(parameters[x], null, +args[0]);
             });
         }
     }
 
     return input;
+}
+
+/**
+ * Tests whether is element input type checkbox
+ * @param element - Element to be tested
+ */
+export function isCheckbox(element: EventTarget): element is HTMLInputElement
+{
+    return (element as HTMLInputElement).type === 'checkbox';
+}
+
+/**
+ * Tests whether is element input type radio
+ * @param element - Element to be tested
+ */
+export function isRadio(element: EventTarget): element is HTMLInputElement
+{
+    return (element as HTMLInputElement).type === 'radio';
+}
+
+/**
+ * Tests whether is element input
+ * @param element - Element to be tested
+ */
+export function isInput(element: EventTarget): element is HTMLInputElement
+{
+    return (element as HTMLInputElement).nodeName === 'INPUT';
+}
+
+/**
+ * Tests whether is element select
+ * @param element - Element to be tested
+ */
+export function isSelect(element: EventTarget): element is HTMLSelectElement
+{
+    return (element as HTMLSelectElement).nodeName === 'SELECT';
+}
+
+/**
+ * Tests whether is element button
+ * @param element - Element to be tested
+ */
+export function isButton(element: EventTarget): element is HTMLButtonElement
+{
+    return (element as HTMLButtonElement).nodeName === 'BUTTON';
+}
+
+/**
+ * Tests whether is element anchor
+ * @param element - Element to be tested
+ */
+export function isAnchor(element: EventTarget): element is HTMLAnchorElement
+{
+    return (element as HTMLAnchorElement).nodeName === 'A';
 }
