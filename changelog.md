@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 5.1.0 (2023-11-28)
+
+### Features
+
+- new `isStrictEquals` function, that tests whether two objects are same reference
+
 ## Version 5.0.0 (2023-11-09)
 
 ### Features

@@ -113,3 +113,11 @@ export function isEmptyObject(obj: any): boolean
 
     return true;
 }
+
+/**
+ * Test two values for strict equality, accounting for the fact that `NaN !== NaN`.
+ */
+export function isStrictEquals(value1: unknown, value2: unknown): boolean 
+{
+    return value1 === value2 || (value1 !== value1 && value2 !== value2);
+}
