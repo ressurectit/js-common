@@ -1,7 +1,7 @@
 import extendLib from 'extend';
 
 import {isBlank, isJsObject, isPresent} from './lang';
-import {AsDictionary, Dictionary, StringDictionary} from '../types/dictionaries';
+import {AsDictionary, Dictionary} from '../types/dictionaries';
 import {Enum} from '../types/enums';
 import {ValueNamePair} from '../types/valueNamePair';
 
