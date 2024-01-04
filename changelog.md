@@ -1,5 +1,17 @@
 # Changelog
 
+## Version 6.0.0 (2024-01-04)
+
+### Features
+
+- updated `validHtmlId` function
+    - now using `normalizeAccent` underhood to remove accent chars
+
+### BREAKING CHANGES
+
+- updated `validHtmlId` function
+    - now it has only one parameter, does not require char map
+
 ## Version 5.1.0 (2023-11-28)
 
 ### Features

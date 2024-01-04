@@ -4,7 +4,6 @@ import {isBlank, isJsObject, isPresent} from './lang';
 import {AsDictionary, Dictionary, StringDictionary} from '../types/dictionaries';
 import {Enum} from '../types/enums';
 import {ValueNamePair} from '../types/valueNamePair';
-import {normalize} from '../normalizer/normalizer';
 
 /**
  * Reverse current string and returns new reverse string
@@ -320,16 +319,15 @@ export function deserializeFromUrlQuery<TObj>(queryParamValue: string, reviver?:
 /**
  * Converts id to valid html id
  * @param id - Id that is going to be converted to valid html id
- * @param charMap - Character map used during normalization
  */
-export function validHtmlId(id: string, charMap: StringDictionary = {}): string
+export function validHtmlId(id: string): string
 {
     id = id.toLowerCase()
         .replace(/[\s]+/g, '-')
         .replace(/\./g, '')
         .replace(/^(\d)/g, 'x$1');
 
-    id = normalize(id, charMap);
+    id = normalizeAccent(id);
 
     return id;
 }
