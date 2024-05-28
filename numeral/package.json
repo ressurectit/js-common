@@ -1,0 +1,11 @@
+{
+    "name": "@jscrpt/common-numeral",
+    "sideEffects": false,
+    "main": "../module/numeral/src/index.cjs",
+    "module": "../module/numeral/src/index.cjs",
+    "browser": "../es2015/numeral/src/index.js",
+    "es2015": "../es2015/numeral/src/index.js",
+    "es2020": "../es2020/numeral/src/index.js",
+    "esm2020": "../es2020/numeral/src/index.js",
+    "typings": "./src/index.d.ts"
+  }

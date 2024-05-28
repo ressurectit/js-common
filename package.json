@@ -63,26 +63,26 @@
     },
     "homepage": "https://github.com/ressurectit/js-common",
     "peerDependencies": {
-        "rxjs": ">=7.5.0",
         "extend": "^3.0.2",
+        "rxjs": ">=7.5.0",
         "tslib": "^2.6.2"
     },
     "devDependencies": {
-        "rxjs": "^7.5.0",
+        "@microsoft/api-documenter": "7.23.11",
+        "@microsoft/api-extractor": "7.38.2",
         "@types/extend": "^3.0.4",
         "@types/node": "^18.11.9",
-        "@microsoft/api-extractor": "7.38.2",
-        "@microsoft/api-documenter": "7.23.11",
-        "tslib": "2.6.2",
-        "eslint": "7.32.0",
         "@typescript-eslint/eslint-plugin": "6.10.0",
         "@typescript-eslint/parser": "6.10.0",
-        "rimraf": "5.0.5",
-        "replace-in-file": "7.0.2",
+        "eslint": "7.32.0",
+        "npm-git-version": "2.0.0",
         "path-exists-cli": "2.0.0",
         "rename-cli": "6.2.1",
-        "typescript": "5.2.2",
-        "npm-git-version": "2.0.0"
+        "replace-in-file": "7.0.2",
+        "rimraf": "5.0.5",
+        "rxjs": "^7.5.0",
+        "tslib": "2.6.2",
+        "typescript": "5.2.2"
     },
     "main": "./module/src/indexNode.cjs",
     "module": "./module/src/indexNode.cjs",
@@ -125,5 +125,8 @@
             "browser": "./es2015/rxjs/src/index.js",
             "default": "./es2022/rxjs/src/index.js"
         }
+    },
+    "dependencies": {
+        "@types/numeral": "^2.0.5"
     }
 }

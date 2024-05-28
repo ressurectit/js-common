@@ -19,6 +19,10 @@
         "importHelpers": true,
         "newLine": "lf",
         "outDir": "es5",
+        "paths": 
+        {
+            "@jscrpt/common": ["./src/index.ts"],
+        },
         "types": 
         [
             "node"
