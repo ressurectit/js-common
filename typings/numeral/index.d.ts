@@ -138,4 +138,4 @@ declare namespace numeral {
     type RegisterType = "format" | "locale";
 }
 
-export = numeral;
+export default numeral;

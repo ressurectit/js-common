@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 6.1.0 (2024-05-29)
+
+- new *subpackage* `@jscrpt/common/numeral`
+    - 'assimilated' library numeral and updated to 'module' package
+
 ## Version 6.0.0 (2024-01-04)
 
 ### Features

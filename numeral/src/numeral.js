@@ -672,6 +672,4 @@ numeral.register('locale', 'en', {
     }
 });
 
-
-
 export default numeral;
