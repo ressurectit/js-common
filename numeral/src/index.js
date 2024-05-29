@@ -1,4 +1,3 @@
-export * from './numeral.js';
 import numeral from './numeral.js';
 
 import bpsFormatFactory from './formats/bps.js';
@@ -87,3 +86,5 @@ thLocaleFactory(numeral);
 trLocaleFactory(numeral);
 ukUaLocaleFactory(numeral);
 viLocaleFactory(numeral);
+
+export default numeral;
