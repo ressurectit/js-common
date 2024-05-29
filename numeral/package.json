@@ -1,0 +1,8 @@
+{
+    "name": "@jscrpt/common-numeral",
+    "sideEffects": false,
+    "main": "./index.js",
+    "module": "./index.js",
+    "browser": "./index.js",
+    "typings": "./src/index.d.ts"
+  }

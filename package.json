@@ -9,7 +9,8 @@
         "es2015/src/index.js",
         "es2020/src/index.js",
         "es2022/src/index.js",
-        "module/src/index.js"
+        "module/src/index.js",
+        "numeral/src/index.js"
     ],
     "scripts": {
         "build": "npm run tsc -- --declaration --declarationDir . --declarationMap && npm run tsc -- -t es2015 --outDir es2015 && npm run tsc -- -t es2015 --outDir es && npm run tsc -- -t es2020 --outDir es2020 && npm run tsc -- -t es2022 --outDir es2022 && npm run tsc -- -t es2015 --outDir module -m CommonJS && npm run build:cjs && npm run build:mjs",
@@ -124,6 +125,14 @@
             },
             "browser": "./es2015/rxjs/src/index.js",
             "default": "./es2022/rxjs/src/index.js"
+        },
+        "./numeral": {
+            "types": "./typings/numeral/index.d.ts",
+            "node": {
+                "import": "./numeral/src/index.js"
+            },
+            "browser": "./numeral/src/index.js",
+            "default": "./numeral/src/index.js"
         }
     }
 }
