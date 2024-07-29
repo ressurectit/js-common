@@ -1,6 +1,15 @@
 # Changelog
 
+## Version 6.2.0 (2024-07-29)
+
+### Features
+
+- new `Mutable` type, that returns a mutable type version of type.
+- new `Writable` type, that returns a writable type version of type.
+
 ## Version 6.1.0 (2024-05-29)
+
+### Features
 
 - new *subpackage* `@jscrpt/common/numeral`
     - 'assimilated' library `numeral.js` and updated to 'module' package
