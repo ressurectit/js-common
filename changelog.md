@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 6.2.1 (2024-07-31)
+
+### Bug Fixes
+
+- fixed `validHtmlId` function, now correctly creates valid HTML id
+
 ## Version 6.2.0 (2024-07-29)
 
 ### Features

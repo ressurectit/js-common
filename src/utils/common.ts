@@ -322,12 +322,11 @@ export function deserializeFromUrlQuery<TObj>(queryParamValue: string, reviver?:
  */
 export function validHtmlId(id: string): string
 {
-    id = id.toLowerCase()
-        .replace(/[\s]+/g, '-')
-        .replace(/\./g, '')
-        .replace(/^(\d)/g, 'x$1');
-
+    id = id.toLowerCase();
     id = normalizeAccent(id);
+
+    id = id.replace(/^([^a-z])/g, 'x$1')
+        .replace(/[^a-z0-9-_:]+/g, '-');
 
     return id;
 }
