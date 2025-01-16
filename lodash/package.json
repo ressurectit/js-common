@@ -1,0 +1,11 @@
+{
+    "name": "@jscrpt/common-lodash",
+    "sideEffects": false,
+    "main": "../module/lodash/src/index.cjs",
+    "module": "../module/lodash/src/index.cjs",
+    "browser": "../es2015/lodash/src/index.js",
+    "es2015": "../es2015/lodash/src/index.js",
+    "es2020": "../es2020/lodash/src/index.js",
+    "esm2020": "../es2020/lodash/src/index.js",
+    "typings": "./src/index.d.ts"
+  }

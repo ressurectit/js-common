@@ -1,0 +1,11 @@
+{
+    "name": "@jscrpt/common-extend",
+    "sideEffects": false,
+    "main": "../module/extend/src/index.cjs",
+    "module": "../module/extend/src/index.cjs",
+    "browser": "../es2015/extend/src/index.js",
+    "es2015": "../es2015/extend/src/index.js",
+    "es2020": "../es2020/extend/src/index.js",
+    "esm2020": "../es2020/extend/src/index.js",
+    "typings": "./src/index.d.ts"
+  }

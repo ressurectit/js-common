@@ -17,8 +17,15 @@
         "strictNullChecks": true,
         "esModuleInterop": true,
         "importHelpers": true,
+        "useDefineForClassFields": false,
+        "skipLibCheck": false,
+        "forceConsistentCasingInFileNames": true,
         "newLine": "lf",
         "outDir": "es5",
+        "paths": 
+        {
+            "@jscrpt/common": ["./src/index.ts"]
+        },
         "types": 
         [
             "node"

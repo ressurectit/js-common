@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 7.0.0 (2025-01-16)
+
+### Features
+
+- new subpackage `@jscrpt/common/lodash`
+    - new optional dependency `lodash-es` package
+- subpackage `@jscrpt/common/lodash`
+    - new `deepCopyWithArrayOverride` function, which performs deep copy of object with arrays that are not merged but overrided with latest value
+
+### BREAKING CHANGES
+
+- utility method `extend` moved into subpackage `@jscrpt/common/extend`
+    - `extend` package dependency is now optional
+
 ## Version 6.2.1 (2024-07-31)
 
 ### Bug Fixes
