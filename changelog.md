@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 7.1.0 (2025-07-15)
+
+### Features
+
+- new `deepCopyWithArrayOverride` overloads for up to nine parameters
+
 ## Version 7.0.0 (2025-01-16)
 
 ### Features
