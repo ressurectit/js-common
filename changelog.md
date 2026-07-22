@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 7.1.1 (2026-07-22)
+
+### Bug Fixes
+
+- fixed `RecursivePartial` type, now correctly handles `Map`, `Set`, `ReadonlyArray`, and builtins (`Function`, `Date`, `Error`, `RegExp`) without recursing into them and losing type information
+
 ## Version 7.1.0 (2025-07-15)
 
 ### Features
