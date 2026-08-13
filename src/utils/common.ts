@@ -412,6 +412,29 @@ export function renderToBody(document: Document, element: HTMLElement, container
 }
 
 /**
+ * Creates JSON.stringify replacer that replaces already visited objects with a marker, handles circular references
+ */
+export function cycleSafeReplacer(): (key: string, value: unknown) => unknown
+{
+    const seen = new WeakSet<object>();
+
+    return function(_key: string, value: unknown): unknown
+    {
+        if(typeof value === 'object' && value !== null)
+        {
+            if(seen.has(value))
+            {
+                return '[Circular]';
+            }
+
+            seen.add(value);
+        }
+
+        return value;
+    };
+}
+
+/**
  * Formats input string using no parameters, returns original input
  * @param input - Input that will be formatted
  */
@@ -443,8 +466,8 @@ export function formatString(input: string|undefined|null, parameter: Record<str
  * ```
  *
  * displays `{{0}}` as direct stringified value of '`0`' index item
- * displays `{{@1}}` as JSON strinfigied value of '`0`' index item
- * displays `{{@(2)1}}` as JSON stringified value of '`0`' index item with 2 spaces indentation (other supported spaces are 4 and 8)
+ * displays `{{@1}}` as JSON strinfigied value of '`1`' index item
+ * displays `{{@(2)1}}` as JSON stringified value of '`1`' index item with 2 spaces indentation (other supported spaces are 4 and 8)
  */
 export function formatString(input: string|undefined|null, ...parameters: unknown[]): string
 export function formatString(input: string|undefined|null, ...parameters: unknown[]|[Record<string, unknown>]): string
@@ -474,10 +497,10 @@ export function formatString(input: string|undefined|null, ...parameters: unknow
 
                 if(isBlank(args[0]))
                 {
-                    return JSON.stringify(getValue(parameter, expression));
+                    return JSON.stringify(getValue(parameter, expression), cycleSafeReplacer());
                 }
 
-                return JSON.stringify(getValue(parameter, expression), null, +args[0]);
+                return JSON.stringify(getValue(parameter, expression), cycleSafeReplacer(), +args[0]);
             });
         }
     }
@@ -497,10 +520,10 @@ export function formatString(input: string|undefined|null, ...parameters: unknow
             {
                 if(isBlank(args[0]))
                 {
-                    return JSON.stringify(parameters[x]);
+                    return JSON.stringify(parameters[x], cycleSafeReplacer());
                 }
 
-                return JSON.stringify(parameters[x], null, +args[0]);
+                return JSON.stringify(parameters[x], cycleSafeReplacer(), +args[0]);
             });
         }
     }

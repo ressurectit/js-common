@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 7.2.0 (2026-08-13)
+
+### Features
+
+- new `cycleSafeReplacer` function, that creates `JSON.stringify` replacer that replaces already visited objects with a marker, and handles circular references
+- updated `formatString` function, now handles circular references when serializing values using `{{@...}}` placeholders
+
 ## Version 7.1.1 (2026-07-22)
 
 ### Bug Fixes
