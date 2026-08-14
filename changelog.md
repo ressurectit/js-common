@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 7.3.0 (2026-08-14)
+
+### Features
+
+- new `eventDispatchesNativeClick` function, that checks whether keyboard event dispatches native click on element, allows skipping of duplicated handling of both events
+
 ## Version 7.2.0 (2026-08-13)
 
 ### Features

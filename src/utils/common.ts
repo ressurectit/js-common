@@ -584,3 +584,28 @@ export function isAnchor(element: EventTarget): element is HTMLAnchorElement
 {
     return (element as HTMLAnchorElement).nodeName === 'A';
 }
+
+/**
+ * Checks whether keyboard event dispatches native click on element, allows skipping of duplicated handling of both events
+ * @param element - Element on which was keyboard event handled
+ * @param event - Keyboard event to be tested
+ */
+export function eventDispatchesNativeClick(element: HTMLElement, event: KeyboardEvent): boolean
+{
+    if(!event.isTrusted)
+    {
+        return false;
+    }
+
+    if(isButton(element) && !element.disabled)
+    {
+        return event.key === 'Enter' || event.key === ' ';
+    }
+
+    if(isAnchor(element))
+    {
+        return event.key === 'Enter';
+    }
+
+    return false;
+}
