@@ -15,6 +15,7 @@ export * from './paginator/paginator';
 export * from './normalizer/charMaps';
 export * from './normalizer/normalizer';
 export * from './enums/orderByDirection';
+export * from './interfaces';
 export * from './types/async';
 export * from './types/combineStrings';
 export * from './types/cssProperties';

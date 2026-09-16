@@ -2,6 +2,7 @@ import {isBlank, isJsObject, isPresent} from './lang';
 import {AsDictionary, Dictionary} from '../types/dictionaries';
 import {Enum} from '../types/enums';
 import {ValueNamePair} from '../types/valueNamePair';
+import {CycleSafeReplacerOptions} from '../interfaces';
 
 /**
  * Reverse current string and returns new reverse string
@@ -412,23 +413,57 @@ export function renderToBody(document: Document, element: HTMLElement, container
 }
 
 /**
- * Creates JSON.stringify replacer that replaces already visited objects with a marker, handles circular references
+ * Creates JSON.stringify replacer that handles circular references, limits depth of serialization and skips DOM nodes, replacing them with markers
+ * @param options - Options for replacer
  */
-export function cycleSafeReplacer(): (key: string, value: unknown) => unknown
+export function cycleSafeReplacer(options?: CycleSafeReplacerOptions): (this: unknown, key: string, value: unknown) => unknown
 {
-    const seen = new WeakSet<object>();
+    const maxDepth = options?.maxDepth ?? 10;
+    const plainObjectsOnly = options?.plainObjectsOnly ?? false;
 
-    return function(_key: string, value: unknown): unknown
+    //stack of objects that are currently being serialized (path from root to current parent)
+    const ancestors: object[] = [];
+
+    return function(this: unknown, _key: string, value: unknown): unknown
     {
-        if(typeof value === 'object' && value !== null)
+        if(typeof value !== 'object' || value === null)
         {
-            if(seen.has(value))
-            {
-                return '[Circular]';
-            }
-
-            seen.add(value);
+            return value;
         }
+
+        //`this` is holder object of current value, unwind stack to it (JSON.stringify traverses depth first)
+        while(ancestors.length && ancestors[ancestors.length - 1] !== this)
+        {
+            ancestors.pop();
+        }
+
+        if(ancestors.includes(value))
+        {
+            return '[Circular]';
+        }
+
+        if(ancestors.length >= maxDepth)
+        {
+            return '[MaxDepth]';
+        }
+
+        //DOM nodes are never serialized, they are too deep and contain references to whole document
+        if(typeof Node !== 'undefined' && value instanceof Node)
+        {
+            return `[${value.nodeName}]`;
+        }
+
+        if(plainObjectsOnly && !Array.isArray(value))
+        {
+            const proto = Object.getPrototypeOf(value);
+
+            if(proto !== Object.prototype && proto !== null)
+            {
+                return `[${value.constructor?.name ?? 'Object'}]`;
+            }
+        }
+
+        ancestors.push(value);
 
         return value;
     };

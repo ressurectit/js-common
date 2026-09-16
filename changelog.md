@@ -1,5 +1,21 @@
 # Changelog
 
+## Version 7.4.0 (2026-08-18)
+
+### Bug Fixes
+
+- fixed `cycleSafeReplacer` function, now correctly detects only real circular references (same object repeated on its own path), shared references are no longer marked as `[Circular]`
+- fixed `cycleSafeReplacer` function, now limits depth of serialization and skips DOM nodes (replaced with `[NODE_NAME]` marker), which prevents `Maximum call stack size exceeded`/`too much recursion` errors when serializing deep object graphs (for example angular components)
+- fixed `formatString` function, `{{@...}}` placeholders no longer fail with `too much recursion` on deep object graphs
+
+### Features
+
+- new `CycleSafeReplacerOptions` interface, that allows customization of `cycleSafeReplacer`
+    - `maxDepth` - maximal depth of nested objects that will be serialized, deeper objects are replaced with `[MaxDepth]` marker, defaults to `10`
+    - `plainObjectsOnly` - indication whether serialize only plain objects and arrays, class instances are replaced with `[ClassName]` marker, defaults to `false`
+- updated `cycleSafeReplacer` function, now accepts optional `CycleSafeReplacerOptions`
+
+
 ## Version 7.3.0 (2026-08-14)
 
 ### Features
