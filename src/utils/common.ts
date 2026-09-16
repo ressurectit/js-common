@@ -2,7 +2,7 @@ import {isBlank, isJsObject, isPresent} from './lang';
 import {AsDictionary, Dictionary} from '../types/dictionaries';
 import {Enum} from '../types/enums';
 import {ValueNamePair} from '../types/valueNamePair';
-import {CycleSafeReplacerOptions} from '../interfaces';
+import {CycleSafeReplacerOptions} from '../interfaces/cycleSafeReplacerOptions/cycleSafeReplacer.options';
 
 /**
  * Reverse current string and returns new reverse string

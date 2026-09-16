@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 7.4.1 (2026-09-16)
+
+### Bug Fixes
+
+- fixed package to no longer use a barrel file for `CycleSafeReplacerOptions` interface export, which caused a crash under `Node`
+
+
 ## Version 7.4.0 (2026-08-18)
 
 ### Bug Fixes
